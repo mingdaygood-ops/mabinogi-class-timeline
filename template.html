@@ -7,99 +7,219 @@
 <meta name="description" content="瑪奇手遊（마비노기 모바일）韓服各職業每次改版的增強、削弱與修正，逐項附官方更新公告來源。">
 <style>
 :root{
-  --bg:#f7f6f3;--surface:#ffffff;--text:#1f1d1a;--muted:#6b665e;--line:#e3e0d9;
-  --accent:#3b5bdb;--up:#1f7a3f;--up-bg:#e3f4e8;--down:#b42318;--down-bg:#fde8e6;
-  --mixed:#9a6400;--mixed-bg:#fdf1d8;--new:#3b5bdb;--new-bg:#e6ebfd;--fix:#5c5850;--fix-bg:#eeece7;
-  --mark:#fff3a3;
+  --bg:#ffffff;--text:#1d1d1f;--muted:#6e6e73;--line:#d9d9de;--line-soft:#ececf0;--head:#f5f5f7;
+  --link:#0b57d0;--skill:#1f3a68;
+  --up:#1a7f37;--down:#c62828;--mixed:#b26a00;--new:#3949ab;--fix:#6e6e73;
+  --up-cell:#2e9e4f;--fixup-cell:#a6d9b3;--down-cell:#d64545;--fixdown-cell:#f0b3b3;
+  --mixed-cell:#e0a030;--new-cell:#5c6bc0;--fix-cell:#c7c7cc;
 }
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme:dark){
   :root{
-    --bg:#16161a;--surface:#1e1e24;--text:#e9e7e2;--muted:#a19c93;--line:#33333b;
-    --accent:#8ea2ff;--up:#6fd394;--up-bg:#173826;--down:#ff8a7d;--down-bg:#3d1c19;
-    --mixed:#f0c060;--mixed-bg:#3a2e14;--new:#8ea2ff;--new-bg:#232b4d;--fix:#c4bfb6;--fix-bg:#2b2a30;
-    --mark:#5a4d00;
+    --bg:#161618;--text:#e8e8ea;--muted:#9a9aa0;--line:#38383d;--line-soft:#2a2a2e;--head:#202023;
+    --link:#7aa7ff;--skill:#c9d6f0;
+    --up:#5fd07e;--down:#ff7b72;--mixed:#e8b04a;--new:#9fa8f0;--fix:#9a9aa0;
+    --up-cell:#3fae5f;--fixup-cell:#2f5e3c;--down-cell:#d9534f;--fixdown-cell:#6b3433;
+    --mixed-cell:#c98f26;--new-cell:#6f7bd0;--fix-cell:#4a4a50;
   }
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+html{scroll-padding-top:56px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);
-  font:15px/1.65 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
-a{color:var(--accent)}
-header.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
-  padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-header.top h1{font-size:16px;margin:0;flex:1 1 260px;font-weight:700}
-header.top input{flex:1 1 220px;max-width:340px;padding:7px 10px;border:1px solid var(--line);border-radius:6px;
-  background:var(--bg);color:var(--text);font:inherit}
-.count{color:var(--muted);font-size:13px;min-width:6em}
-.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;max-width:1240px;margin:0 auto;padding:20px 16px 60px}
-nav.toc{position:sticky;top:72px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;font-size:14px}
+  font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Top bar: title, meta line, search */
+header.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-inner{max-width:1200px;margin:0 auto;padding:10px 20px;display:flex;gap:6px 20px;align-items:baseline;flex-wrap:wrap}
+header.top h1{margin:0;font-size:17px;font-weight:700}
+.meta{color:var(--muted);font-size:13px}
+.search{margin-left:auto;display:flex;gap:10px;align-items:center}
+.search input{width:300px;max-width:60vw;padding:5px 8px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.search input:focus{outline:2px solid var(--link);outline-offset:-1px}
+.count{color:var(--muted);font-size:13px;white-space:nowrap}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:190px minmax(0,1fr);gap:36px;max-width:1200px;margin:0 auto;padding:20px 20px 60px}
+nav.toc{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;font-size:14px}
 nav.toc ul{list-style:none;margin:0;padding:0}
-nav.toc li{margin:2px 0}
-nav.toc ul ul{padding-left:12px;margin:2px 0 8px;border-left:2px solid var(--line)}
-nav.toc a{color:var(--text);text-decoration:none;display:block;padding:2px 6px;border-radius:4px}
-nav.toc a:hover{background:var(--line)}
+nav.toc li.group>span{display:block;margin-top:12px;padding:2px 0;color:var(--muted);font-size:12px}
+nav.toc a{display:block;padding:2px 0 2px 10px;color:var(--text);border-left:2px solid transparent}
+nav.toc a:hover{color:var(--link);text-decoration:none}
+nav.toc a.active{border-left-color:var(--text);font-weight:700}
 main{min-width:0}
-main h2{font-size:22px;margin:40px 0 8px;padding-top:4px;border-top:2px solid var(--line)}
-main h2:first-child{margin-top:0;border-top:0}
-main h3{font-size:18px;margin:28px 0 6px}
-main p{margin:6px 0 10px}
-.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;margin:10px 0 18px}
+
+/* Panels */
+.panel{display:none}
+.panel.shown{display:block}
+main.filtering .panel.shown~.panel.shown{margin-top:32px;padding-top:16px;border-top:1px solid var(--line)}
+.kicker{margin:0;color:var(--muted);font-size:13px}
+main h2{font-size:22px;font-weight:700;margin:0 0 8px}
+main h3.sub{font-size:15px;margin:22px 0 6px}
+.panel p{margin:6px 0 12px}
+main ul{padding-left:20px}
+
+/* Season summaries: plain paragraphs with a small label */
+ul.seasons{list-style:none;padding:0;margin:10px 0 4px}
+ul.seasons li{margin:0 0 12px}
+.s-head{display:flex;gap:8px;align-items:baseline}
+.s-tag{font-weight:700}
+.s-period{color:var(--muted);font-size:13px}
+
+/* Community comments: footnote style */
+.community-label{margin:16px 0 4px;font-size:13px;font-weight:700;color:var(--muted)}
+ul.community{margin:0 0 20px;padding-left:18px;font-size:13.5px;color:var(--text)}
+ul.community li{margin:3px 0}
+.community-none{margin:0 0 20px;color:var(--muted);font-size:13.5px}
+
+/* Names: no backgrounds, only weight and tone */
+.sk{color:var(--skill);font-weight:500}
+.rn{color:inherit}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:10px 0 20px;border:1px solid var(--line)}
 table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{background:var(--bg);font-weight:600;white-space:nowrap}
+th,td{padding:6px 10px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
+thead th{background:var(--head);font-weight:600;font-size:13px;white-space:nowrap;border-bottom:1px solid var(--line)}
 tr:last-child td{border-bottom:0}
-td:first-child{white-space:nowrap}
-td:last-child{white-space:nowrap}
-td.type{white-space:nowrap;font-weight:700;text-align:center}
-.t-up{color:var(--up);background:var(--up-bg)}
-.t-down{color:var(--down);background:var(--down-bg)}
-.t-mixed{color:var(--mixed);background:var(--mixed-bg)}
-.t-new{color:var(--new);background:var(--new-bg)}
-.t-fixup{color:var(--up);background:var(--fix-bg)}
-.t-fixdown{color:var(--down);background:var(--fix-bg)}
-.t-fix,.t-note{color:var(--fix);background:var(--fix-bg)}
+td:first-child{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px}
+table.changes td:last-child{white-space:nowrap}
+td.type{white-space:nowrap}
+.badge{font-size:13px;font-weight:600}
+.badge::before{display:inline-block;width:1.1em}
+.t-up{color:var(--up)}.t-up::before{content:"▲"}
+.t-down{color:var(--down)}.t-down::before{content:"▼"}
+.t-mixed{color:var(--mixed)}.t-mixed::before{content:"◆"}
+.t-new{color:var(--new)}.t-new::before{content:"＋"}
+.t-fixup{color:var(--up)}.t-fixup::before{content:"△"}
+.t-fixdown{color:var(--down)}.t-fixdown::before{content:"▽"}
+.t-fix,.t-note{color:var(--fix)}.t-fix::before,.t-note::before{content:"·"}
 tr.hidden{display:none}
-mark{background:var(--mark);color:inherit}
-footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:40px;padding-top:12px}
+.empty{color:var(--muted);padding:20px 0}
+footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:40px;padding-top:10px}
+
+/* Overview matrix: class x patch date */
+.matrix-wrap{overflow-x:auto;margin:12px 0 8px;border:1px solid var(--line)}
+table.matrix{width:auto;font-size:12px;border-collapse:collapse}
+table.matrix th,table.matrix td{padding:0;border:1px solid var(--line-soft);text-align:center;vertical-align:middle}
+table.matrix thead th{background:var(--head);font-weight:500;color:var(--muted)}
+table.matrix thead tr.season th{font-weight:700;color:var(--text);padding:2px 0}
+table.matrix thead tr.dates th{writing-mode:vertical-rl;padding:4px 0;height:62px;font-variant-numeric:tabular-nums}
+table.matrix th.cls{position:sticky;left:0;z-index:1;background:var(--bg);text-align:left;white-space:nowrap;padding:2px 10px 2px 6px;font-weight:500;color:var(--text)}
+table.matrix th.grp{background:var(--head);text-align:left;padding:2px 0;color:var(--muted);font-weight:500}
+table.matrix th.grp span{position:sticky;left:6px;padding:0 6px}
+table.matrix td{width:22px;min-width:22px;height:22px}
+table.matrix td a{display:block;width:100%;height:22px;line-height:22px;color:#fff;font-size:11px;text-decoration:none}
+table.matrix td.s-start{border-left:2px solid var(--text)}
+.c-up{background:var(--up-cell)}.c-fixup{background:var(--fixup-cell)}
+.c-down{background:var(--down-cell)}.c-fixdown{background:var(--fixdown-cell)}
+.c-mixed{background:var(--mixed-cell)}.c-new{background:var(--new-cell)}.c-fix{background:var(--fix-cell)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin:6px 0 4px}
+.legend i{display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-1px}
+
 @media (max-width:860px){
-  .layout{grid-template-columns:1fr}
-  nav.toc{position:static;max-height:none;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
-  nav.toc ul ul{display:flex;flex-wrap:wrap;gap:2px 4px;border-left:0;padding-left:8px}
-  nav.toc ul ul a{font-size:13px;color:var(--accent)}
+  header.top{position:static}
+  .top-inner{padding:8px 14px}
+  .search{margin-left:0;width:100%}
+  .search input{width:100%;max-width:none}
+  .layout{grid-template-columns:1fr;gap:10px;padding:0 14px 48px}
+  nav.toc{position:sticky;top:0;z-index:9;max-height:none;margin:0 -14px;padding:6px 14px;background:var(--bg);
+    border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  nav.toc::-webkit-scrollbar{display:none}
+  nav.toc>ul,nav.toc ul ul{display:inline-flex;gap:14px;align-items:baseline}
+  nav.toc li.group{display:inline-flex;gap:14px;align-items:baseline}
+  nav.toc li.group>span{margin:0 0 0 6px}
+  nav.toc a{padding:2px 0;border-left:0;border-bottom:2px solid transparent}
+  nav.toc a.active{border-bottom-color:var(--text)}
+  html{scroll-padding-top:48px}
+  table.changes td:nth-child(3){min-width:200px}
 }
 </style>
 </head>
 <body>
 <header class="top">
-  <h1>{{TITLE}}</h1>
-  <input id="q" type="search" placeholder="篩選：技能名、日期、符號（例：퀘이크、2026/08、↓）" aria-label="篩選表格">
-  <span class="count" id="count"></span>
+  <div class="top-inner">
+    <h1>{{TITLE}}</h1>
+    <span class="meta">韓服 · 43 份官方公告（2025/04/03～2026/10/01）· 查核至 2026/10/13</span>
+    <div class="search">
+      <input id="q" type="search" placeholder="搜尋技能名（中／韓）、日期、類型" aria-label="搜尋全部職業的改動表格">
+      <span class="count" id="count"></span>
+    </div>
+  </div>
 </header>
 <div class="layout">
-  <nav class="toc" aria-label="目錄">{{NAV}}</nav>
+  <nav class="toc" aria-label="分頁">{{NAV}}</nav>
   <main id="content">
 {{BODY}}
-    <footer>資料來源：韓服 Nexon「마비노기 모바일」官方更新公告，查核截至 2026/10/13。非官方整理，數值以遊戲內與官方公告為準。</footer>
+    <p class="empty" id="empty" hidden>沒有符合的列。</p>
+    <footer>資料來源：韓服 Nexon「瑪奇手遊（마비노기 모바일）」官方更新公告，查核截至 2026/10/13。非官方整理，數值以遊戲內與官方公告為準；社群評論僅代表發文者看法。</footer>
   </main>
 </div>
 <script>
 (function(){
   // Wrap tables so they scroll horizontally on narrow screens.
   document.querySelectorAll('main table').forEach(function(t){
-    var w=document.createElement('div');w.className='table-wrap';
+    var w=document.createElement('div');w.className=t.classList.contains('matrix')?'matrix-wrap':'table-wrap';
     t.parentNode.insertBefore(w,t);w.appendChild(t);
   });
-  var rows=[].slice.call(document.querySelectorAll('main tbody tr'));
-  var q=document.getElementById('q'),count=document.getElementById('count');
-  function apply(){
-    var term=q.value.trim().toLowerCase(),shown=0;
-    rows.forEach(function(r){
-      var hit=!term||r.textContent.toLowerCase().indexOf(term)!==-1;
-      r.classList.toggle('hidden',!hit);if(hit)shown++;
-    });
-    count.textContent=term?('符合 '+shown+' 列'):'';
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var q=document.getElementById('q'),count=document.getElementById('count'),empty=document.getElementById('empty');
+  var baseTitle=document.title,main=document.getElementById('content');
+  var narrow=window.matchMedia('(max-width:860px)');
+
+  // One panel is shown at a time, picked by the URL hash.
+  function current(){
+    var id=decodeURIComponent(location.hash.slice(1));
+    return panels.filter(function(p){return p.id===id;})[0]||panels[0];
   }
+  function showTab(){
+    var cur=current();
+    panels.forEach(function(p){p.classList.toggle('shown',p===cur);});
+    links.forEach(function(a){
+      var on=decodeURIComponent(a.hash.slice(1))===cur.id;
+      a.classList.toggle('active',on);
+      if(on&&narrow.matches){a.scrollIntoView({block:'nearest',inline:'center'});}
+    });
+    document.title=cur===panels[0]?baseTitle:(cur.dataset.title+'｜'+baseTitle);
+    // Show the most recent patches first in the overview matrix.
+    cur.querySelectorAll('.matrix-wrap').forEach(function(w){w.scrollLeft=w.scrollWidth;});
+    empty.hidden=true;
+  }
+
+  // While filtering, search every change table and show panels with matching rows.
+  function apply(){
+    var term=q.value.trim().toLowerCase(),total=0;
+    main.classList.toggle('filtering',!!term);
+    if(!term){
+      document.querySelectorAll('tr.hidden').forEach(function(r){r.classList.remove('hidden');});
+      count.textContent='';showTab();return;
+    }
+    panels.forEach(function(p){
+      var hits=0;
+      p.querySelectorAll('table.changes tbody tr').forEach(function(r){
+        var hit=r.textContent.toLowerCase().indexOf(term)!==-1;
+        r.classList.toggle('hidden',!hit);if(hit)hits++;
+      });
+      p.classList.toggle('shown',hits>0);total+=hits;
+    });
+    links.forEach(function(a){a.classList.remove('active');});
+    count.textContent='符合 '+total+' 列';
+    empty.hidden=total>0;
+  }
+
+  // Picking a tab ends any active filter, even when the hash does not change.
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');
+    if(a&&q.value){q.value='';setTimeout(apply,0);}
+  });
+  window.addEventListener('hashchange',function(){
+    showTab();
+    var y=main.getBoundingClientRect().top+window.scrollY-(narrow.matches?48:60);
+    if(window.scrollY>y){window.scrollTo(0,y);}
+  });
   q.addEventListener('input',apply);
+  showTab();
 })();
 </script>
 </body>
