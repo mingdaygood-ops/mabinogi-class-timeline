@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="瑪奇手遊（마비노기 모바일）韓服各職業每次改版的增強、削弱與修正，逐項附官方更新公告來源。">
+<style>
+:root{
+  --bg:#f7f6f3;--surface:#ffffff;--text:#1f1d1a;--muted:#6b665e;--line:#e3e0d9;
+  --accent:#3b5bdb;--up:#1f7a3f;--up-bg:#e3f4e8;--down:#b42318;--down-bg:#fde8e6;
+  --mixed:#9a6400;--mixed-bg:#fdf1d8;--new:#3b5bdb;--new-bg:#e6ebfd;--fix:#5c5850;--fix-bg:#eeece7;
+  --mark:#fff3a3;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16161a;--surface:#1e1e24;--text:#e9e7e2;--muted:#a19c93;--line:#33333b;
+    --accent:#8ea2ff;--up:#6fd394;--up-bg:#173826;--down:#ff8a7d;--down-bg:#3d1c19;
+    --mixed:#f0c060;--mixed-bg:#3a2e14;--new:#8ea2ff;--new-bg:#232b4d;--fix:#c4bfb6;--fix-bg:#2b2a30;
+    --mark:#5a4d00;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:15px/1.65 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+a{color:var(--accent)}
+header.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);
+  padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+header.top h1{font-size:16px;margin:0;flex:1 1 260px;font-weight:700}
+header.top input{flex:1 1 220px;max-width:340px;padding:7px 10px;border:1px solid var(--line);border-radius:6px;
+  background:var(--bg);color:var(--text);font:inherit}
+.count{color:var(--muted);font-size:13px;min-width:6em}
+.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;max-width:1240px;margin:0 auto;padding:20px 16px 60px}
+nav.toc{position:sticky;top:72px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;font-size:14px}
+nav.toc ul{list-style:none;margin:0;padding:0}
+nav.toc li{margin:2px 0}
+nav.toc ul ul{padding-left:12px;margin:2px 0 8px;border-left:2px solid var(--line)}
+nav.toc a{color:var(--text);text-decoration:none;display:block;padding:2px 6px;border-radius:4px}
+nav.toc a:hover{background:var(--line)}
+main{min-width:0}
+main h2{font-size:22px;margin:40px 0 8px;padding-top:4px;border-top:2px solid var(--line)}
+main h2:first-child{margin-top:0;border-top:0}
+main h3{font-size:18px;margin:28px 0 6px}
+main p{margin:6px 0 10px}
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px;margin:10px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--bg);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap}
+td:last-child{white-space:nowrap}
+td.type{white-space:nowrap;font-weight:700;text-align:center}
+.t-up{color:var(--up);background:var(--up-bg)}
+.t-down{color:var(--down);background:var(--down-bg)}
+.t-mixed{color:var(--mixed);background:var(--mixed-bg)}
+.t-new{color:var(--new);background:var(--new-bg)}
+.t-fixup{color:var(--up);background:var(--fix-bg)}
+.t-fixdown{color:var(--down);background:var(--fix-bg)}
+.t-fix,.t-note{color:var(--fix);background:var(--fix-bg)}
+tr.hidden{display:none}
+mark{background:var(--mark);color:inherit}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:40px;padding-top:12px}
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr}
+  nav.toc{position:static;max-height:none;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface)}
+  nav.toc ul ul{display:flex;flex-wrap:wrap;gap:2px 4px;border-left:0;padding-left:8px}
+  nav.toc ul ul a{font-size:13px;color:var(--accent)}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>{{TITLE}}</h1>
+  <input id="q" type="search" placeholder="篩選：技能名、日期、符號（例：퀘이크、2026/08、↓）" aria-label="篩選表格">
+  <span class="count" id="count"></span>
+</header>
+<div class="layout">
+  <nav class="toc" aria-label="目錄">{{NAV}}</nav>
+  <main id="content">
+{{BODY}}
+    <footer>資料來源：韓服 Nexon「마비노기 모바일」官方更新公告，查核截至 2026/10/13。非官方整理，數值以遊戲內與官方公告為準。</footer>
+  </main>
+</div>
+<script>
+(function(){
+  // Wrap tables so they scroll horizontally on narrow screens.
+  document.querySelectorAll('main table').forEach(function(t){
+    var w=document.createElement('div');w.className='table-wrap';
+    t.parentNode.insertBefore(w,t);w.appendChild(t);
+  });
+  var rows=[].slice.call(document.querySelectorAll('main tbody tr'));
+  var q=document.getElementById('q'),count=document.getElementById('count');
+  function apply(){
+    var term=q.value.trim().toLowerCase(),shown=0;
+    rows.forEach(function(r){
+      var hit=!term||r.textContent.toLowerCase().indexOf(term)!==-1;
+      r.classList.toggle('hidden',!hit);if(hit)shown++;
+    });
+    count.textContent=term?('符合 '+shown+' 列'):'';
+  }
+  q.addEventListener('input',apply);
+})();
+</script>
+</body>
+</html>
