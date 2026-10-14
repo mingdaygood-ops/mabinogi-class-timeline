@@ -1,6 +1,6 @@
 # 瑪奇手遊 韓服職業改版與強度
 
-Oct 13, 2026 · @Austin
+最後更新：2026/10/14
 
 ## 使用說明
 
@@ -30,6 +30,11 @@ Oct 13, 2026 · @Austin
 - 名稱寫法：技能（主動、被動、賽季技能）寫成【中文（韓文）】，飾品符文（장신구 룬）搭配技能時的變體寫成〔中文（韓文）〕，接在技能後面；其他符文、效果與系統名稱寫成「中文（韓文）」或 中文（韓文）。同一列內第一次出現時附韓文原名，之後只寫中文。中文是本文依韓文原意翻的譯名，可能與台服官方譯名不同，請以括號內的韓文對照遊戲內名稱。
 - 百分比是單一技能的變化，不等於整個職業 DPS 的增減。
 - 來源：每列最後一欄都連到該次官方公告，全部由本次查核實際開啟。「來源清單」分頁列出 43 份公告與無職業改動的場次。
+
+#### 更新紀錄
+
+- 2026/10/14：新增「S2 職業強度」分頁（Nightmare Drill 與團戰 DPS 排行）與「改版總覽」矩陣；改版類型簡化為增強、削弱、有增有減、其他四種；依官方原文修正弩手 2025/05/29 與祭司 2025/08/21 的內容。
+- 2026/10/13：初版。整理 2025/04/03～2026/10/01 的 43 份官方更新說明，每個職業一個分頁。
 
 ## S2 職業強度
 
@@ -123,21 +128,21 @@ Oct 13, 2026 · @Austin
 
 | 來源 | 頁面 | 內容 | 收集範圍 | 樣本 |
 | --- | --- | --- | --- | --- |
-| 모비스코어（mobi-score.com） | [DPS 排名](https://mobi-score.com/ranking) | 玩家自行安裝的 DPS 計量工具上傳的戰鬥紀錄，從 boss 出現算到倒下 | 2026/09/17～10/14 | 15 個項目、11,561 筆玩家最佳紀錄 |
-| 모비라이프（mabimobi.life） | [Nightmare Drill 排名](https://mabimobi.life/ranking/nightmare)、[深淵排名](https://mabimobi.life/ranking/abyss) | 遊戲內官方排名的整理，網站自稱非官方資料、與 Nexon 無關 | 2026/10/14 快照；每日資料 Nightmare Drill 從 9/25、深淵從 9/18 開始 | 各職業前 100 名；上榜總數 Nightmare Drill 16,279 人、深淵 15,020 人 |
+| mobi-score.com（모비스코어） | [DPS 排名](https://mobi-score.com/ranking) | 玩家自行安裝的 DPS 計量工具上傳的戰鬥紀錄，從 boss 出現算到倒下 | 2026/09/17～10/14 | 15 個項目、11,561 筆玩家最佳紀錄 |
+| mabimobi.life（모비라이프） | [Nightmare Drill 排名](https://mabimobi.life/ranking/nightmare)、[深淵排名](https://mabimobi.life/ranking/abyss) | 遊戲內官方排名的整理，網站自稱非官方資料、與 Nexon 無關 | 2026/10/14 快照；每日資料 Nightmare Drill 從 9/25、深淵從 9/18 開始 | 各職業前 100 名；上榜總數 Nightmare Drill 16,279 人、深淵 15,020 人 |
 | DCInside 艾文藝廊 | [討論區](https://gall.dcinside.com/mgallery/board/lists/?id=enban) | 玩家的個人紀錄與評價，只用來交叉比對 | 2026/07～10 | 個別貼文 |
 
-整理後的原始資料：[DPS（모비스코어）](data/s2-strength/mobiscore-dps-by-class.csv)、[Nightmare Drill 職業別](data/s2-strength/mabimobi-nightmare-class.csv)、[Nightmare Drill 每日](data/s2-strength/mabimobi-nightmare-daily.csv)、[深淵職業別](data/s2-strength/mabimobi-abyss-class.csv)、[深淵每日](data/s2-strength/mabimobi-abyss-daily.csv)、[全服前 100 名分布](data/s2-strength/mabimobi-top100-distribution.csv)。
+整理後的原始資料：[DPS（mobi-score.com）](data/s2-strength/mobiscore-dps-by-class.csv)、[Nightmare Drill 職業別](data/s2-strength/mabimobi-nightmare-class.csv)、[Nightmare Drill 每日](data/s2-strength/mabimobi-nightmare-daily.csv)、[深淵職業別](data/s2-strength/mabimobi-abyss-class.csv)、[深淵每日](data/s2-strength/mabimobi-abyss-daily.csv)、[全服前 100 名分布](data/s2-strength/mabimobi-top100-distribution.csv)。
 
-- 通關實力：모비라이프 的 Nightmare Drill 排名，單人挑戰、以個人計算。每位玩家的成績是打到的最高層與通關時間；每個職業看前 10 名玩家的平均層數，同分再比第 100 名門檻的層數與時間。
-- 團戰 DPS：모비스코어 的卡布拉克（카브락）困難與艾瑞爾（에이렐）非常困難。모비스코어 的 Raid 排名只有這兩項，也就是兩個 Raid 各自的最高難度；艾瑞爾困難沒有收錄。每位玩家只取最佳紀錄，每個職業取前 10 名 DPS 的中位數。DPS 是個人在隊伍中打出的傷害，包含隊友的增益。
-- 團戰 DPS 的分組依 모비라이프 的定位分類：坦克是戰士、冰霜術士、騎士；治癒是治癒師、祭司、修道士、吟遊詩人；其餘 14 個職業是輸出。
-- 沒有採用的資料：深淵排名的分數，網站與官方都沒有說明怎麼計算；모비스코어 的深淵與 Nightmare Drill 各層 DPS，前段職業打得特別快（例如虛像停泊地（허상의 정박지）弓箭手前 10 名的戰鬥時間中位數 16 秒），DPS 受戰鬥長短影響太大。兩者的原始資料仍可從上方連結下載。
+- 通關實力：mabimobi.life 的 Nightmare Drill 排名，單人挑戰、以個人計算。每位玩家的成績是打到的最高層與通關時間；每個職業看前 10 名玩家的平均層數，同分再比第 100 名門檻的層數與時間。
+- 團戰 DPS：mobi-score.com 的卡布拉克（카브락）困難與艾瑞爾（에이렐）非常困難。mobi-score.com 的 Raid 排名只有這兩項，也就是兩個 Raid 各自的最高難度；艾瑞爾困難沒有收錄。每位玩家只取最佳紀錄，每個職業取前 10 名 DPS 的中位數。DPS 是個人在隊伍中打出的傷害，包含隊友的增益。
+- 團戰 DPS 的分組依 mabimobi.life 的定位分類：坦克是戰士、冰霜術士、騎士；治癒是治癒師、祭司、修道士、吟遊詩人；其餘 14 個職業是輸出。
+- 沒有採用的資料：深淵排名的分數，網站與官方都沒有說明怎麼計算；mobi-score.com 的深淵與 Nightmare Drill 各層 DPS，前段職業打得特別快（例如虛像停泊地（허상의 정박지）弓箭手前 10 名的戰鬥時間中位數 16 秒），DPS 受戰鬥長短影響太大。兩者的原始資料仍可從上方連結下載。
 
 #### 限制
 
 - 只看各職業最頂尖的玩家，不代表一般玩家的表現。玩家多的職業，頂端成績自然較高，所以職業強度和玩家人數的影響分不開。
-- 모비스코어 只有安裝工具的玩家才有資料，73～87% 是匿名訪客帳號；모비라이프 沒有公開收集方法，自稱非官方資料。
+- mobi-score.com 只有安裝工具的玩家才有資料，73～87% 是匿名訪客帳號；mabimobi.life 沒有公開收集方法，自稱非官方資料。
 
 ## 全職業共通變動
 

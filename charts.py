@@ -97,7 +97,7 @@ def chart_sustained(nm, ab, ms, role):
             )
         )
     return (
-        '<figure class="chart"><figcaption>團戰 DPS 排行（모비스코어，2026/09/17～10/14）</figcaption>'
+        '<figure class="chart"><figcaption>團戰 DPS 排行（mobi-score.com，2026/09/17～10/14）</figcaption>'
         '<p class="chart-note top">團戰結算依定位分開，所以輸出、坦克、治癒各自排名。</p>'
         f'<div class="sm-grid">{"".join(panels)}</div></figure>'
     )
@@ -129,7 +129,7 @@ def chart_drill(nm, ab, ms, role):
     axis = "".join(f'<span style="left:{x(v):.2f}%">{v}</span>' for v in ticks)
     step = 100 / (len(ticks) - 1)
     return (
-        '<figure class="chart"><figcaption>Nightmare Drill 排行（모비라이프，2026/10/14）</figcaption>'
+        '<figure class="chart"><figcaption>Nightmare Drill 排行（mabimobi.life，2026/10/14）</figcaption>'
         '<p class="chart-note top">單人挑戰，結算不分定位，21 個職業一起排名。</p>'
         f'<div class="dots has-ext" style="--gs:{step:.4f}%">'
         '<div class="dot-head"><span class="lbl"></span><span>前 10 名平均層數</span><span class="ext">第 1 名（層、時間）</span></div>'

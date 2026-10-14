@@ -192,11 +192,12 @@ def main():
     md_text = SRC.read_text(encoding="utf-8")
     lines = md_text.splitlines()
     title = lines[0].lstrip("# ").strip()
-    # Drop the title and the byline (date · author) from the body; the page header carries them.
-    body_lines = lines[1:]
-    body_lines = [
-        line for line in body_lines if not re.match(r"^\w{3} \d{1,2}, \d{4} ·", line)
-    ]
+    # The "last updated" line moves from the body into the page header.
+    updated_re = re.compile(r"^最後更新：(\d{4}/\d{2}/\d{2})$")
+    updated = next((m.group(1) for m in map(updated_re.match, lines) if m), None)
+    if not updated:
+        raise SystemExit("report.md needs a line like '最後更新：2026/10/14'")
+    body_lines = [line for line in lines[1:] if not updated_re.match(line)]
     body_md = "\n".join(body_lines)
 
     md = markdown.Markdown(
@@ -282,6 +283,7 @@ def main():
     template = (ROOT / "template.html").read_text(encoding="utf-8")
     page = (
         template.replace("{{TITLE}}", html.escape(title))
+        .replace("{{UPDATED}}", updated)
         .replace("{{NAV}}", nav_html)
         .replace("{{BODY}}", panels_html)
     )
