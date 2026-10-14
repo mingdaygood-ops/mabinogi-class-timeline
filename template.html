@@ -9,17 +9,15 @@
 :root{
   --bg:#ffffff;--text:#1d1d1f;--muted:#6e6e73;--line:#d9d9de;--line-soft:#ececf0;--head:#f5f5f7;
   --link:#0b57d0;--skill:#1f3a68;
-  --up:#1a7f37;--down:#c62828;--mixed:#b26a00;--new:#3949ab;--fix:#6e6e73;
-  --up-cell:#2e9e4f;--fixup-cell:#a6d9b3;--down-cell:#d64545;--fixdown-cell:#f0b3b3;
-  --mixed-cell:#e0a030;--new-cell:#5c6bc0;--fix-cell:#c7c7cc;
+  --up:#1a7f37;--down:#c62828;--mixed:#b26a00;--fix:#6e6e73;
+  --up-cell:#2e9e4f;--down-cell:#d64545;--mixed-cell:#e0a030;--fix-cell:#c7c7cc;
 }
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#161618;--text:#e8e8ea;--muted:#9a9aa0;--line:#38383d;--line-soft:#2a2a2e;--head:#202023;
     --link:#7aa7ff;--skill:#c9d6f0;
-    --up:#5fd07e;--down:#ff7b72;--mixed:#e8b04a;--new:#9fa8f0;--fix:#9a9aa0;
-    --up-cell:#3fae5f;--fixup-cell:#2f5e3c;--down-cell:#d9534f;--fixdown-cell:#6b3433;
-    --mixed-cell:#c98f26;--new-cell:#6f7bd0;--fix-cell:#4a4a50;
+    --up:#5fd07e;--down:#ff7b72;--mixed:#e8b04a;--fix:#9a9aa0;
+    --up-cell:#3fae5f;--down-cell:#d9534f;--mixed-cell:#c98f26;--fix-cell:#4a4a50;
   }
 }
 *{box-sizing:border-box}
@@ -56,6 +54,7 @@ main.filtering .panel.shown~.panel.shown{margin-top:32px;padding-top:16px;border
 .kicker{margin:0;color:var(--muted);font-size:13px}
 main h2{font-size:22px;font-weight:700;margin:0 0 8px}
 main h3.sub{font-size:15px;margin:22px 0 6px}
+main h4{font-size:16px;margin:28px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line-soft)}
 .panel p{margin:6px 0 12px}
 main ul{padding-left:20px}
 
@@ -90,10 +89,7 @@ td.type{white-space:nowrap}
 .t-up{color:var(--up)}.t-up::before{content:"▲"}
 .t-down{color:var(--down)}.t-down::before{content:"▼"}
 .t-mixed{color:var(--mixed)}.t-mixed::before{content:"◆"}
-.t-new{color:var(--new)}.t-new::before{content:"＋"}
-.t-fixup{color:var(--up)}.t-fixup::before{content:"△"}
-.t-fixdown{color:var(--down)}.t-fixdown::before{content:"▽"}
-.t-fix,.t-note{color:var(--fix)}.t-fix::before,.t-note::before{content:"·"}
+.t-note{color:var(--fix)}.t-note::before{content:"·"}
 tr.hidden{display:none}
 .empty{color:var(--muted);padding:20px 0}
 footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:40px;padding-top:10px}
@@ -111,11 +107,53 @@ table.matrix th.grp span{position:sticky;left:6px;padding:0 6px}
 table.matrix td{width:22px;min-width:22px;height:22px}
 table.matrix td a{display:block;width:100%;height:22px;line-height:22px;color:#fff;font-size:11px;text-decoration:none}
 table.matrix td.s-start{border-left:2px solid var(--text)}
-.c-up{background:var(--up-cell)}.c-fixup{background:var(--fixup-cell)}
-.c-down{background:var(--down-cell)}.c-fixdown{background:var(--fixdown-cell)}
-.c-mixed{background:var(--mixed-cell)}.c-new{background:var(--new-cell)}.c-fix{background:var(--fix-cell)}
+.c-up{background:var(--up-cell)}.c-down{background:var(--down-cell)}
+.c-mixed{background:var(--mixed-cell)}.c-fix{background:var(--fix-cell)}
 .legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin:6px 0 4px}
 .legend i{display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-1px}
+
+/* S2 strength charts */
+:root{--role-dealer:#2a78d6;--role-tank:#eb6834;--role-healer:#1baf7a;--grid:#e1e0d9}
+@media (prefers-color-scheme:dark){:root{--role-dealer:#3987e5;--role-tank:#d95926;--role-healer:#199e70;--grid:#2c2c2a}}
+details{margin:-12px 0 22px;font-size:14px}
+details>summary{cursor:pointer;color:var(--link);font-size:13px;padding:4px 0}
+details[open]>summary{margin-bottom:4px}
+figure.chart{margin:14px 0 22px;padding:12px 14px;border:1px solid var(--line);overflow-x:auto}
+figure.chart figcaption{font-size:14px;font-weight:600;margin-bottom:8px}
+.chart-note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.chart-note.top{margin:-4px 0 8px;color:var(--text);font-size:13px}
+.bar-group{font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 2px;padding-bottom:2px;border-bottom:1px solid var(--line-soft)}
+.bar-group:first-of-type{margin-top:4px}
+.chart-legend{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.chart-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.role-dealer{background:var(--role-dealer)}.role-tank{background:var(--role-tank)}.role-healer{background:var(--role-healer)}
+/* bars, small multiples */
+.sm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px}
+.sm-title{font-size:13px;font-weight:600}.sm-note{font-size:12px;color:var(--muted);margin-bottom:4px}
+.bar-row,.dot-row,.dot-axis{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:center;gap:8px;font-size:12.5px;min-height:20px}
+.bar-row .lbl,.dot-row .lbl{white-space:nowrap}
+.bar-row .track{display:flex;align-items:center;gap:6px;min-width:0}
+.bar-row .bar{display:block;height:10px;border-radius:0 4px 4px 0;min-width:2px}
+.bar-row .val,.dot-row .val{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar-row:hover,.dot-row:hover{background:var(--head)}
+/* dot and range plots */
+.dots.has-ext .dot-row,.dots.has-ext .dot-axis,.dot-head{grid-template-columns:96px minmax(0,1fr) 120px}
+.dot-head{display:grid;gap:8px;font-size:12px;color:var(--muted);margin-bottom:2px}
+.dots.has-ext .dot{background:var(--link)}
+.dots.has-ext .dot-row .track,.dots.has-ext .dot-axis .track{margin-right:48px}
+.dots.has-ext{padding-right:0}
+.dots.has-ext .ext,.dot-head .ext{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12.5px}
+.dots.has-ext .dot-row .ext{color:var(--text)}
+.dots{padding-right:56px}
+.dot-row .track,.dot-axis .track{position:relative;height:20px;border-left:1px solid var(--grid)}
+.dot-row .track{background:repeating-linear-gradient(to right,transparent 0,transparent calc(var(--gs) - 1px),var(--grid) calc(var(--gs) - 1px),var(--grid) var(--gs))}
+.dot-row .dot{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 2px var(--bg)}
+.dot-row .rng{position:absolute;top:50%;height:3px;transform:translateY(-50%);opacity:.55}
+.dot-row .val{position:absolute;top:50%;transform:translateY(-50%);margin-left:10px;font-size:12px}
+.dot-axis .track{border-left:0;height:16px}
+.dot-axis span span{position:absolute;transform:translateX(-50%);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:860px){.sm-grid{grid-template-columns:1fr}.dots.has-ext{min-width:520px}figure.chart{padding:10px 8px}
+  .table-wrap table:not(.changes):not(.matrix){min-width:560px}.bar-row,.dot-row,.dot-axis{grid-template-columns:64px minmax(0,1fr)}}
 
 @media (max-width:860px){
   header.top{position:static}

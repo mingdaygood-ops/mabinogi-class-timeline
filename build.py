@@ -11,6 +11,8 @@ from pathlib import Path
 import markdown
 from markdown.extensions.toc import TocExtension
 
+import charts
+
 ROOT = Path(__file__).parent
 SRC = ROOT / "report.md"
 OUT_DIR = ROOT / "docs"
@@ -26,11 +28,7 @@ TYPE_CLASSES = {
     "增強": "t-up",
     "削弱": "t-down",
     "有增有減": "t-mixed",
-    "新增": "t-new",
-    "修正後變強": "t-fixup",
-    "修正後變弱": "t-fixdown",
-    "修正": "t-fix",
-    "僅改說明": "t-note",
+    "其他": "t-note",
 }
 
 
@@ -41,26 +39,21 @@ def type_class(text):
 MATRIX_ID = "改版總覽"
 CELL = {
     "增強": ("c-up", "▲"),
-    "修正後變強": ("c-fixup", "△"),
     "削弱": ("c-down", "▼"),
-    "修正後變弱": ("c-fixdown", "▽"),
     "有增有減": ("c-mixed", "◆"),
-    "新增": ("c-new", "＋"),
-    "修正": ("c-fix", "·"),
-    "僅改說明": ("c-fix", "·"),
+    "其他": ("c-fix", "·"),
 }
 
 
 def combine(types):
     """Pick one overall direction for all rows a class got on one date."""
     t = set(types)
-    pos, neg = t & {"增強", "修正後變強"}, t & {"削弱", "修正後變弱"}
-    if "有增有減" in t or (pos and neg):
+    if "有增有減" in t or {"增強", "削弱"} <= t:
         return "有增有減"
-    for k in ("增強", "削弱", "新增", "修正後變強", "修正後變弱", "修正"):
+    for k in ("增強", "削弱"):
         if k in t:
             return k
-    return "僅改說明"
+    return "其他"
 
 
 def build_matrix(md_text, toc_tokens):
@@ -138,15 +131,7 @@ def build_matrix(md_text, toc_tokens):
         )
     legend = "".join(
         f'<span><i class="{CELL[k][0]}"></i>{k}</span>'
-        for k in (
-            "增強",
-            "修正後變強",
-            "有增有減",
-            "新增",
-            "修正後變弱",
-            "削弱",
-            "修正",
-        )
+        for k in ("增強", "有增有減", "削弱", "其他")
     )
     return (
         f'<section class="panel" id="{MATRIX_ID}" data-title="{MATRIX_ID}">'
@@ -209,13 +194,20 @@ def main():
     title = lines[0].lstrip("# ").strip()
     # Drop the title and the byline (date · author) from the body; the page header carries them.
     body_lines = lines[1:]
-    body_lines = [l for l in body_lines if not re.match(r"^\w{3} \d{1,2}, \d{4} ·", l)]
+    body_lines = [
+        line for line in body_lines if not re.match(r"^\w{3} \d{1,2}, \d{4} ·", line)
+    ]
     body_md = "\n".join(body_lines)
 
     md = markdown.Markdown(
-        extensions=["tables", TocExtension(slugify=slugify, toc_depth="2-3")]
+        extensions=[
+            "tables",
+            "md_in_html",
+            TocExtension(slugify=slugify, toc_depth="2-3"),
+        ]
     )
     body_html = md.convert(body_md)
+    body_html = charts.render(body_html)
 
     # Open external links in a new tab.
     body_html = body_html.replace(
@@ -225,7 +217,7 @@ def main():
     # Render the 類型 column (2nd cell of 4-column tables) as a coloured badge.
     def tag_row(m):
         cells = re.findall(r"<td>(.*?)</td>", m.group(0), flags=re.S)
-        if len(cells) == 4:
+        if len(cells) == 4 and re.sub("<[^>]+>", "", cells[1]).strip() in TYPE_CLASSES:
             cls = type_class(re.sub("<[^>]+>", "", cells[1]))
             row = m.group(0).replace(
                 f"<td>{cells[1]}</td>",

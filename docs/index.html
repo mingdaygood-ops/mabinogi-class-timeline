@@ -3,23 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>瑪奇手遊 韓服職業 Buff／Nerf 時間軸</title>
+<title>瑪奇手遊 韓服職業改版與強度</title>
 <meta name="description" content="瑪奇手遊（마비노기 모바일）韓服各職業每次改版的增強、削弱與修正，逐項附官方更新公告來源。">
 <style>
 :root{
   --bg:#ffffff;--text:#1d1d1f;--muted:#6e6e73;--line:#d9d9de;--line-soft:#ececf0;--head:#f5f5f7;
   --link:#0b57d0;--skill:#1f3a68;
-  --up:#1a7f37;--down:#c62828;--mixed:#b26a00;--new:#3949ab;--fix:#6e6e73;
-  --up-cell:#2e9e4f;--fixup-cell:#a6d9b3;--down-cell:#d64545;--fixdown-cell:#f0b3b3;
-  --mixed-cell:#e0a030;--new-cell:#5c6bc0;--fix-cell:#c7c7cc;
+  --up:#1a7f37;--down:#c62828;--mixed:#b26a00;--fix:#6e6e73;
+  --up-cell:#2e9e4f;--down-cell:#d64545;--mixed-cell:#e0a030;--fix-cell:#c7c7cc;
 }
 @media (prefers-color-scheme:dark){
   :root{
     --bg:#161618;--text:#e8e8ea;--muted:#9a9aa0;--line:#38383d;--line-soft:#2a2a2e;--head:#202023;
     --link:#7aa7ff;--skill:#c9d6f0;
-    --up:#5fd07e;--down:#ff7b72;--mixed:#e8b04a;--new:#9fa8f0;--fix:#9a9aa0;
-    --up-cell:#3fae5f;--fixup-cell:#2f5e3c;--down-cell:#d9534f;--fixdown-cell:#6b3433;
-    --mixed-cell:#c98f26;--new-cell:#6f7bd0;--fix-cell:#4a4a50;
+    --up:#5fd07e;--down:#ff7b72;--mixed:#e8b04a;--fix:#9a9aa0;
+    --up-cell:#3fae5f;--down-cell:#d9534f;--mixed-cell:#c98f26;--fix-cell:#4a4a50;
   }
 }
 *{box-sizing:border-box}
@@ -56,6 +54,7 @@ main.filtering .panel.shown~.panel.shown{margin-top:32px;padding-top:16px;border
 .kicker{margin:0;color:var(--muted);font-size:13px}
 main h2{font-size:22px;font-weight:700;margin:0 0 8px}
 main h3.sub{font-size:15px;margin:22px 0 6px}
+main h4{font-size:16px;margin:28px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line-soft)}
 .panel p{margin:6px 0 12px}
 main ul{padding-left:20px}
 
@@ -90,10 +89,7 @@ td.type{white-space:nowrap}
 .t-up{color:var(--up)}.t-up::before{content:"▲"}
 .t-down{color:var(--down)}.t-down::before{content:"▼"}
 .t-mixed{color:var(--mixed)}.t-mixed::before{content:"◆"}
-.t-new{color:var(--new)}.t-new::before{content:"＋"}
-.t-fixup{color:var(--up)}.t-fixup::before{content:"△"}
-.t-fixdown{color:var(--down)}.t-fixdown::before{content:"▽"}
-.t-fix,.t-note{color:var(--fix)}.t-fix::before,.t-note::before{content:"·"}
+.t-note{color:var(--fix)}.t-note::before{content:"·"}
 tr.hidden{display:none}
 .empty{color:var(--muted);padding:20px 0}
 footer{color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);margin-top:40px;padding-top:10px}
@@ -111,11 +107,53 @@ table.matrix th.grp span{position:sticky;left:6px;padding:0 6px}
 table.matrix td{width:22px;min-width:22px;height:22px}
 table.matrix td a{display:block;width:100%;height:22px;line-height:22px;color:#fff;font-size:11px;text-decoration:none}
 table.matrix td.s-start{border-left:2px solid var(--text)}
-.c-up{background:var(--up-cell)}.c-fixup{background:var(--fixup-cell)}
-.c-down{background:var(--down-cell)}.c-fixdown{background:var(--fixdown-cell)}
-.c-mixed{background:var(--mixed-cell)}.c-new{background:var(--new-cell)}.c-fix{background:var(--fix-cell)}
+.c-up{background:var(--up-cell)}.c-down{background:var(--down-cell)}
+.c-mixed{background:var(--mixed-cell)}.c-fix{background:var(--fix-cell)}
 .legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin:6px 0 4px}
 .legend i{display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-1px}
+
+/* S2 strength charts */
+:root{--role-dealer:#2a78d6;--role-tank:#eb6834;--role-healer:#1baf7a;--grid:#e1e0d9}
+@media (prefers-color-scheme:dark){:root{--role-dealer:#3987e5;--role-tank:#d95926;--role-healer:#199e70;--grid:#2c2c2a}}
+details{margin:-12px 0 22px;font-size:14px}
+details>summary{cursor:pointer;color:var(--link);font-size:13px;padding:4px 0}
+details[open]>summary{margin-bottom:4px}
+figure.chart{margin:14px 0 22px;padding:12px 14px;border:1px solid var(--line);overflow-x:auto}
+figure.chart figcaption{font-size:14px;font-weight:600;margin-bottom:8px}
+.chart-note{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.chart-note.top{margin:-4px 0 8px;color:var(--text);font-size:13px}
+.bar-group{font-size:12px;font-weight:700;color:var(--muted);margin:10px 0 2px;padding-bottom:2px;border-bottom:1px solid var(--line-soft)}
+.bar-group:first-of-type{margin-top:4px}
+.chart-legend{display:flex;gap:14px;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.chart-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.role-dealer{background:var(--role-dealer)}.role-tank{background:var(--role-tank)}.role-healer{background:var(--role-healer)}
+/* bars, small multiples */
+.sm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px}
+.sm-title{font-size:13px;font-weight:600}.sm-note{font-size:12px;color:var(--muted);margin-bottom:4px}
+.bar-row,.dot-row,.dot-axis{display:grid;grid-template-columns:72px minmax(0,1fr);align-items:center;gap:8px;font-size:12.5px;min-height:20px}
+.bar-row .lbl,.dot-row .lbl{white-space:nowrap}
+.bar-row .track{display:flex;align-items:center;gap:6px;min-width:0}
+.bar-row .bar{display:block;height:10px;border-radius:0 4px 4px 0;min-width:2px}
+.bar-row .val,.dot-row .val{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar-row:hover,.dot-row:hover{background:var(--head)}
+/* dot and range plots */
+.dots.has-ext .dot-row,.dots.has-ext .dot-axis,.dot-head{grid-template-columns:96px minmax(0,1fr) 120px}
+.dot-head{display:grid;gap:8px;font-size:12px;color:var(--muted);margin-bottom:2px}
+.dots.has-ext .dot{background:var(--link)}
+.dots.has-ext .dot-row .track,.dots.has-ext .dot-axis .track{margin-right:48px}
+.dots.has-ext{padding-right:0}
+.dots.has-ext .ext,.dot-head .ext{font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12.5px}
+.dots.has-ext .dot-row .ext{color:var(--text)}
+.dots{padding-right:56px}
+.dot-row .track,.dot-axis .track{position:relative;height:20px;border-left:1px solid var(--grid)}
+.dot-row .track{background:repeating-linear-gradient(to right,transparent 0,transparent calc(var(--gs) - 1px),var(--grid) calc(var(--gs) - 1px),var(--grid) var(--gs))}
+.dot-row .dot{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 2px var(--bg)}
+.dot-row .rng{position:absolute;top:50%;height:3px;transform:translateY(-50%);opacity:.55}
+.dot-row .val{position:absolute;top:50%;transform:translateY(-50%);margin-left:10px;font-size:12px}
+.dot-axis .track{border-left:0;height:16px}
+.dot-axis span span{position:absolute;transform:translateX(-50%);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:860px){.sm-grid{grid-template-columns:1fr}.dots.has-ext{min-width:520px}figure.chart{padding:10px 8px}
+  .table-wrap table:not(.changes):not(.matrix){min-width:560px}.bar-row,.dot-row,.dot-axis{grid-template-columns:64px minmax(0,1fr)}}
 
 @media (max-width:860px){
   header.top{position:static}
@@ -139,7 +177,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <body>
 <header class="top">
   <div class="top-inner">
-    <h1>瑪奇手遊 韓服職業 Buff／Nerf 時間軸</h1>
+    <h1>瑪奇手遊 韓服職業改版與強度</h1>
     <span class="meta">韓服 · 43 份官方公告（2025/04/03～2026/10/01）· 查核至 2026/10/13</span>
     <div class="search">
       <input id="q" type="search" placeholder="搜尋技能名（中／韓）、日期、類型" aria-label="搜尋全部職業的改動表格">
@@ -148,7 +186,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
   </div>
 </header>
 <div class="layout">
-  <nav class="toc" aria-label="分頁"><ul><li><a href="#使用說明">使用說明</a></li><li><a href="#改版總覽">改版總覽</a></li><li><a href="#全職業共通變動">全職業共通變動</a></li><li class="group"><span>戰士系</span><ul><li><a href="#戰士-전사">戰士（전사）</a></li><li><a href="#大劍戰士-대검전사">大劍戰士（대검전사）</a></li><li><a href="#劍術師-검술사">劍術師（검술사）</a></li><li><a href="#騎士-기사">騎士（기사）</a></li></ul></li><li class="group"><span>弓箭手系</span><ul><li><a href="#弓箭手-궁수">弓箭手（궁수）</a></li><li><a href="#弩手-석궁사수">弩手（석궁사수）</a></li><li><a href="#長弓手-장궁병">長弓手（장궁병）</a></li></ul></li><li class="group"><span>魔法師系</span><ul><li><a href="#魔法師-마법사">魔法師（마법사）</a></li><li><a href="#火焰術士-화염술사">火焰術士（화염술사）</a></li><li><a href="#冰霜術士-빙결술사">冰霜術士（빙결술사）</a></li><li><a href="#電擊術士-전격술사">電擊術士（전격술사）</a></li></ul></li><li class="group"><span>治癒師系</span><ul><li><a href="#治癒師-힐러">治癒師（힐러）</a></li><li><a href="#祭司-사제">祭司（사제）</a></li><li><a href="#修道士-수도사">修道士（수도사）</a></li><li><a href="#暗黑術士-암흑술사">暗黑術士（암흑술사）</a></li></ul></li><li class="group"><span>吟遊詩人系</span><ul><li><a href="#吟遊詩人-음유시인">吟遊詩人（음유시인）</a></li><li><a href="#樂師-악사">樂師（악사）</a></li><li><a href="#舞者-댄서">舞者（댄서）</a></li></ul></li><li class="group"><span>盜賊系</span><ul><li><a href="#盜賊-도적">盜賊（도적）</a></li><li><a href="#格鬥家-격투가">格鬥家（격투가）</a></li><li><a href="#雙刀-듀얼블레이드">雙刀（듀얼블레이드）</a></li></ul></li><li><a href="#來源清單與查核紀錄">來源清單與查核紀錄</a></li></ul></nav>
+  <nav class="toc" aria-label="分頁"><ul><li><a href="#使用說明">使用說明</a></li><li><a href="#改版總覽">改版總覽</a></li><li><a href="#s2-職業強度">S2 職業強度</a></li><li><a href="#全職業共通變動">全職業共通變動</a></li><li class="group"><span>戰士系</span><ul><li><a href="#戰士-전사">戰士（전사）</a></li><li><a href="#大劍戰士-대검전사">大劍戰士（대검전사）</a></li><li><a href="#劍術師-검술사">劍術師（검술사）</a></li><li><a href="#騎士-기사">騎士（기사）</a></li></ul></li><li class="group"><span>弓箭手系</span><ul><li><a href="#弓箭手-궁수">弓箭手（궁수）</a></li><li><a href="#弩手-석궁사수">弩手（석궁사수）</a></li><li><a href="#長弓手-장궁병">長弓手（장궁병）</a></li></ul></li><li class="group"><span>魔法師系</span><ul><li><a href="#魔法師-마법사">魔法師（마법사）</a></li><li><a href="#火焰術士-화염술사">火焰術士（화염술사）</a></li><li><a href="#冰霜術士-빙결술사">冰霜術士（빙결술사）</a></li><li><a href="#電擊術士-전격술사">電擊術士（전격술사）</a></li></ul></li><li class="group"><span>治癒師系</span><ul><li><a href="#治癒師-힐러">治癒師（힐러）</a></li><li><a href="#祭司-사제">祭司（사제）</a></li><li><a href="#修道士-수도사">修道士（수도사）</a></li><li><a href="#暗黑術士-암흑술사">暗黑術士（암흑술사）</a></li></ul></li><li class="group"><span>吟遊詩人系</span><ul><li><a href="#吟遊詩人-음유시인">吟遊詩人（음유시인）</a></li><li><a href="#樂師-악사">樂師（악사）</a></li><li><a href="#舞者-댄서">舞者（댄서）</a></li></ul></li><li class="group"><span>盜賊系</span><ul><li><a href="#盜賊-도적">盜賊（도적）</a></li><li><a href="#格鬥家-격투가">格鬥家（격투가）</a></li><li><a href="#雙刀-듀얼블레이드">雙刀（듀얼블레이드）</a></li></ul></li><li><a href="#來源清單與查核紀錄">來源清單與查核紀錄</a></li></ul></nav>
   <main id="content">
 <section class="panel" id="使用說明" data-title="使用說明"><h2>使用說明</h2>
 <p>本文逐一核對韓服 Nexon 官方「更新說明（업데이트 노트）」43 份（2025/04/03～2026/10/01），把與職業強弱有關的條目按職業整理。每個職業分頁先寫 S0～S2 各賽季的改動簡介與社群評論，再列逐次改版的表格；表格新的在上，最上面幾列就是目前狀態。社群評論是玩家或遊戲媒體對特定改動的看法，附原文連結，代表發文者自己的立場。各職業共通的改動在「全職業共通變動」分頁，建議先看。</p>
@@ -180,14 +218,460 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </table>
 <ul>
 <li>日期是實際改版日（定期維護當天），不是公告發布日。公告可能提早一天發布，例如 2026/09/17 與 2026/10/01 的公告分別在 2026/09/16、2026/09/30 發布。</li>
-<li>類型：增強、削弱；有增有減 = 重做，或同一次改動裡有增有減；新增 = 新技能／新職業；修正後變強／修正後變弱 = Bug 修正後實際表現變強／變弱；修正 = 方向不明的 Bug 修正；僅改說明 = 只改技能說明，效果不變。內文括號裡的類型（如「（削弱）」）表示該列中個別項目的方向與整列不同。</li>
+<li>類型分四種：增強、削弱、有增有減（重做，或同一次改動裡有增有減）、其他（新技能、新職業、方向不明的修正、只改說明）。Bug 修正依修正後的實際效果算成增強或削弱，內容會寫明是修正。內文括號裡的類型（如「（削弱）」）表示該列中個別項目的方向與整列不同。</li>
 <li>收錄標準：數值、機制與會改變實際表現的 Bug 修正全部收錄；純特效、動畫、外觀修正不收。只改說明的條目，只在容易被誤認為削弱或增強時才列出。</li>
 <li>名稱寫法：技能（主動、被動、賽季技能）寫成<span class="sk">【中文（韓文）】</span>，飾品符文（장신구 룬）搭配技能時的變體寫成<span class="rn">〔中文（韓文）〕</span>，接在技能後面；其他符文、效果與系統名稱寫成「中文（韓文）」或 中文（韓文）。同一列內第一次出現時附韓文原名，之後只寫中文。中文是本文依韓文原意翻的譯名，可能與台服官方譯名不同，請以括號內的韓文對照遊戲內名稱。</li>
 <li>百分比是單一技能的變化，不等於整個職業 DPS 的增減。共通變動可能比單一職業的調整影響更大，見「全職業共通變動」分頁。</li>
 <li>來源：每列最後一欄都連到該次官方公告，全部由本次查核實際開啟。「來源清單」分頁列出 43 份公告與無職業改動的場次。</li>
 </ul>
 </section>
-<section class="panel" id="改版總覽" data-title="改版總覽"><h2>改版總覽</h2><p>每一格是該職業在那次改版的整體方向，同一天同時有增強與削弱時算有增有減。點格子或職業名稱可跳到該職業的分頁；滑鼠停在格子上可看到當天的類型。</p><div class="legend"><span><i class="c-up"></i>增強</span><span><i class="c-fixup"></i>修正後變強</span><span><i class="c-mixed"></i>有增有減</span><span><i class="c-new"></i>新增</span><span><i class="c-fixdown"></i>修正後變弱</span><span><i class="c-down"></i>削弱</span><span><i class="c-fix"></i>修正</span></div><table class="matrix"><thead><tr class="season"><th class="cls"></th><th colspan="12">S0</th><th colspan="13">S1</th><th colspan="11">S2</th></tr><tr class="dates"><th class="cls"></th><th>25/04/03</th><th>25/04/10</th><th>25/04/24</th><th>25/05/08</th><th>25/05/15</th><th>25/05/29</th><th>25/06/19</th><th>25/07/03</th><th>25/07/17</th><th>25/07/31</th><th>25/08/21</th><th>25/09/04</th><th>25/09/25</th><th>25/10/16</th><th>25/10/30</th><th>25/11/13</th><th>25/11/27</th><th>25/12/18</th><th>26/01/15</th><th>26/01/29</th><th>26/02/12</th><th>26/03/12</th><th>26/03/26</th><th>26/04/23</th><th>26/05/21</th><th>26/06/25</th><th>26/07/02</th><th>26/07/09</th><th>26/07/16</th><th>26/07/23</th><th>26/07/30</th><th>26/08/13</th><th>26/08/20</th><th>26/08/27</th><th>26/09/17</th><th>26/10/01</th></tr></thead><tbody><tr><th class="cls"><a href="#全職業共通變動">全職業共通變動</a></th><td class="s-start"></td><td></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/04/24：有增有減">◆</a></td><td></td><td class="c-fixup"><a href="#全職業共通變動" title="全職業共通變動 2025/05/15：修正後變強">△</a></td><td class="c-down"><a href="#全職業共通變動" title="全職業共通變動 2025/05/29：削弱">▼</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2025/06/19：增強">▲</a></td><td></td><td></td><td></td><td class="c-new"><a href="#全職業共通變動" title="全職業共通變動 2025/08/21：新增">＋</a></td><td></td><td class="c-new s-start"><a href="#全職業共通變動" title="全職業共通變動 2025/09/25：新增">＋</a></td><td></td><td class="c-fixup"><a href="#全職業共通變動" title="全職業共通變動 2025/10/30：修正後變強">△</a></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/11/13：有增有減">◆</a></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/11/27：有增有減">◆</a></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/12/18：有增有減">◆</a></td><td class="c-new"><a href="#全職業共通變動" title="全職業共通變動 2026/01/15：新增">＋</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/01/29：增強">▲</a></td><td></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/03/12：增強">▲</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/03/26：增強">▲</a></td><td class="c-new"><a href="#全職業共通變動" title="全職業共通變動 2026/04/23：新增">＋</a></td><td class="c-fixup"><a href="#全職業共通變動" title="全職業共通變動 2026/05/21：修正後變強">△</a></td><td class="c-down s-start"><a href="#全職業共通變動" title="全職業共通變動 2026/06/25：削弱、新增">▼</a></td><td class="c-new"><a href="#全職業共通變動" title="全職業共通變動 2026/07/02：新增">＋</a></td><td class="c-fixdown"><a href="#全職業共通變動" title="全職業共通變動 2026/07/09：修正後變弱">▽</a></td><td class="c-fixup"><a href="#全職業共通變動" title="全職業共通變動 2026/07/16：修正後變強">△</a></td><td></td><td></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2026/08/13：增強、削弱">◆</a></td><td class="c-fixdown"><a href="#全職業共通變動" title="全職業共通變動 2026/08/20：修正後變弱">▽</a></td><td></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2026/09/17：削弱、增強">◆</a></td><td></td></tr><tr><th class="grp" colspan="37"><span>戰士系</span></th></tr><tr><th class="cls"><a href="#戰士-전사">戰士</a></th><td class="s-start"></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/05/08：增強">▲</a></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/05/15：增強">▲</a></td><td class="c-mixed"><a href="#戰士-전사" title="戰士 2025/05/29：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-fixup"><a href="#戰士-전사" title="戰士 2025/07/31：修正後變強">△</a></td><td></td><td></td><td class="c-up s-start"><a href="#戰士-전사" title="戰士 2025/09/25：增強">▲</a></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/10/30：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2026/02/12：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#戰士-전사" title="戰士 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2026/07/16：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#大劍戰士-대검전사">大劍戰士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td class="c-fixup"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/06/19：修正後變強">△</a></td><td></td><td class="c-fixup"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/07/17：修正後變強">△</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/12/18：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/06/25：有增有減">◆</a></td><td class="c-fixup"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/07/02：修正後變強">△</a></td><td class="c-fixup"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/07/09：修正後變強">△</a></td><td class="c-mixed"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/07/16：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#劍術師-검술사">劍術師</a></th><td class="s-start"></td><td class="c-fixdown"><a href="#劍術師-검술사" title="劍術師 2025/04/10：修正後變弱">▽</a></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#劍術師-검술사" title="劍術師 2025/06/19：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#劍術師-검술사" title="劍術師 2025/09/25：有增有減">◆</a></td><td class="c-fixdown"><a href="#劍術師-검술사" title="劍術師 2025/10/16：修正後變弱">▽</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-new s-start"><a href="#劍術師-검술사" title="劍術師 2026/06/25：新增">＋</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#騎士-기사">騎士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-new"><a href="#騎士-기사" title="騎士 2026/04/23：新增">＋</a></td><td class="c-fix"><a href="#騎士-기사" title="騎士 2026/05/21：修正">·</a></td><td class="c-new s-start"><a href="#騎士-기사" title="騎士 2026/06/25：新增">＋</a></td><td></td><td></td><td class="c-up"><a href="#騎士-기사" title="騎士 2026/07/16：增強">▲</a></td><td></td><td class="c-fixup"><a href="#騎士-기사" title="騎士 2026/07/30：修正後變強">△</a></td><td></td><td class="c-fixdown"><a href="#騎士-기사" title="騎士 2026/08/20：修正後變弱">▽</a></td><td></td><td class="c-up"><a href="#騎士-기사" title="騎士 2026/09/17：增強">▲</a></td><td></td></tr><tr><th class="grp" colspan="37"><span>弓箭手系</span></th></tr><tr><th class="cls"><a href="#弓箭手-궁수">弓箭手</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#弓箭手-궁수" title="弓箭手 2025/06/19：有增有減">◆</a></td><td></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2025/07/17：增強">▲</a></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2025/07/31：增強">▲</a></td><td></td><td></td><td class="c-mixed s-start"><a href="#弓箭手-궁수" title="弓箭手 2025/09/25：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2026/03/12：增強">▲</a></td><td></td><td></td><td></td><td class="c-new s-start"><a href="#弓箭手-궁수" title="弓箭手 2026/06/25：新增">＋</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2026/08/13：增強">▲</a></td><td class="c-mixed"><a href="#弓箭手-궁수" title="弓箭手 2026/08/20：有增有減">◆</a></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#弩手-석궁사수">弩手</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td class="c-down"><a href="#弩手-석궁사수" title="弩手 2025/05/29：削弱">▼</a></td><td class="c-fixup"><a href="#弩手-석궁사수" title="弩手 2025/06/19：修正後變強">△</a></td><td></td><td></td><td class="c-fixup"><a href="#弩手-석궁사수" title="弩手 2025/07/31：修正後變強">△</a></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#弩手-석궁사수" title="弩手 2025/09/25：增強">▲</a></td><td></td><td class="c-fixdown"><a href="#弩手-석궁사수" title="弩手 2025/10/30：修正後變弱">▽</a></td><td></td><td></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2025/12/18：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#弩手-석궁사수" title="弩手 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-mixed"><a href="#弩手-석궁사수" title="弩手 2026/08/13：有增有減">◆</a></td><td></td><td class="c-fixup"><a href="#弩手-석궁사수" title="弩手 2026/08/27：修正後變強">△</a></td><td class="c-fixdown"><a href="#弩手-석궁사수" title="弩手 2026/09/17：修正後變弱">▽</a></td><td></td></tr><tr><th class="cls"><a href="#長弓手-장궁병">長弓手</a></th><td class="c-fixup s-start"><a href="#長弓手-장궁병" title="長弓手 2025/04/03：修正後變強">△</a></td><td></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/04/24：有增有減">◆</a></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/05/08：有增有減">◆</a></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2025/05/15：增強">▲</a></td><td></td><td></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/07/03：有增有減">◆</a></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/07/17：有增有減">◆</a></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/07/31：有增有減">◆</a></td><td></td><td></td><td class="c-up s-start"><a href="#長弓手-장궁병" title="長弓手 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2025/12/18：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/02/12：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#長弓手-장궁병" title="長弓手 2026/06/25：增強">▲</a></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/07/02：增強">▲</a></td><td></td><td class="c-fixup"><a href="#長弓手-장궁병" title="長弓手 2026/07/16：修正後變強">△</a></td><td></td><td></td><td></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2026/08/20：有增有減">◆</a></td><td></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/10/01：增強">▲</a></td></tr><tr><th class="grp" colspan="37"><span>魔法師系</span></th></tr><tr><th class="cls"><a href="#魔法師-마법사">魔法師</a></th><td class="s-start"></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2025/04/10：有增有減">◆</a></td><td class="c-fixup"><a href="#魔法師-마법사" title="魔法師 2025/04/24：修正後變強">△</a></td><td></td><td class="c-fixup"><a href="#魔法師-마법사" title="魔法師 2025/05/15：修正後變強">△</a></td><td class="c-fixup"><a href="#魔法師-마법사" title="魔法師 2025/05/29：修正後變強">△</a></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2025/06/19：有增有減">◆</a></td><td></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2025/07/31：有增有減">◆</a></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2025/08/21：增強">▲</a></td><td></td><td class="c-down s-start"><a href="#魔法師-마법사" title="魔法師 2025/09/25：削弱">▼</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2026/01/15：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#魔法師-마법사" title="魔法師 2026/06/25：增強">▲</a></td><td></td><td></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2026/07/23：有增有減">◆</a></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2026/08/13：有增有減">◆</a></td><td></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2026/09/17：有增有減">◆</a></td><td></td></tr><tr><th class="cls"><a href="#火焰術士-화염술사">火焰術士</a></th><td class="s-start"></td><td class="c-mixed"><a href="#火焰術士-화염술사" title="火焰術士 2025/04/10：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-fixdown"><a href="#火焰術士-화염술사" title="火焰術士 2025/05/29：修正後變弱">▽</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#火焰術士-화염술사" title="火焰術士 2025/09/04：有增有減">◆</a></td><td class="c-up s-start"><a href="#火焰術士-화염술사" title="火焰術士 2025/09/25：增強">▲</a></td><td class="c-mixed"><a href="#火焰術士-화염술사" title="火焰術士 2025/10/16：有增有減">◆</a></td><td class="c-up"><a href="#火焰術士-화염술사" title="火焰術士 2025/10/30：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-fixup"><a href="#火焰術士-화염술사" title="火焰術士 2026/01/29：修正後變強">△</a></td><td></td><td class="c-fix"><a href="#火焰術士-화염술사" title="火焰術士 2026/03/12：修正">·</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#火焰術士-화염술사" title="火焰術士 2026/06/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#冰霜術士-빙결술사">冰霜術士</a></th><td class="s-start"></td><td></td><td class="c-fixup"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/04/24：修正後變強">△</a></td><td></td><td class="c-up"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/05/15：增強">▲</a></td><td class="c-up"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/05/29：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/09/25：有增有減">◆</a></td><td></td><td></td><td class="c-down"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/11/13：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-fixdown"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/02/12：修正後變弱">▽</a></td><td class="c-fixdown"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/03/12：修正後變弱">▽</a></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/06/25：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td class="c-fix"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/07/30：僅改說明">·</a></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#電擊術士-전격술사">電擊術士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td class="c-new"><a href="#電擊術士-전격술사" title="電擊術士 2025/06/19：新增">＋</a></td><td class="c-mixed"><a href="#電擊術士-전격술사" title="電擊術士 2025/07/03：有增有減">◆</a></td><td></td><td class="c-fixup"><a href="#電擊術士-전격술사" title="電擊術士 2025/07/31：修正後變強">△</a></td><td></td><td></td><td class="c-down s-start"><a href="#電擊術士-전격술사" title="電擊術士 2025/09/25：削弱">▼</a></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/10/16：增強">▲</a></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/11/13：增強">▲</a></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/12/18：增強">▲</a></td><td></td><td></td><td class="c-down"><a href="#電擊術士-전격술사" title="電擊術士 2026/02/12：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-new s-start"><a href="#電擊術士-전격술사" title="電擊術士 2026/06/25：新增">＋</a></td><td></td><td></td><td></td><td class="c-fixup"><a href="#電擊術士-전격술사" title="電擊術士 2026/07/23：修正後變強">△</a></td><td></td><td class="c-fixup"><a href="#電擊術士-전격술사" title="電擊術士 2026/08/13：修正後變強">△</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="grp" colspan="37"><span>治癒師系</span></th></tr><tr><th class="cls"><a href="#治癒師-힐러">治癒師</a></th><td class="c-fixdown s-start"><a href="#治癒師-힐러" title="治癒師 2025/04/03：修正後變弱">▽</a></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2025/05/08：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2025/06/19：增強">▲</a></td><td></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#治癒師-힐러" title="治癒師 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2026/01/15：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#治癒師-힐러" title="治癒師 2026/06/25：增強">▲</a></td><td class="c-fix"><a href="#治癒師-힐러" title="治癒師 2026/07/02：僅改說明">·</a></td><td></td><td class="c-fixup"><a href="#治癒師-힐러" title="治癒師 2026/07/16：修正後變強">△</a></td><td></td><td></td><td class="c-down"><a href="#治癒師-힐러" title="治癒師 2026/08/13：削弱">▼</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#祭司-사제">祭司</a></th><td class="s-start"></td><td class="c-fixup"><a href="#祭司-사제" title="祭司 2025/04/10：修正後變強">△</a></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/05/08：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/06/19：增強">▲</a></td><td></td><td class="c-mixed"><a href="#祭司-사제" title="祭司 2025/07/17：有增有減">◆</a></td><td class="c-fixup"><a href="#祭司-사제" title="祭司 2025/07/31：修正後變強">△</a></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/08/21：增強">▲</a></td><td></td><td class="c-mixed s-start"><a href="#祭司-사제" title="祭司 2025/09/25：有增有減">◆</a></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/10/30：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2026/03/26：增強">▲</a></td><td></td><td></td><td class="c-mixed s-start"><a href="#祭司-사제" title="祭司 2026/06/25：有增有減">◆</a></td><td class="c-fixup"><a href="#祭司-사제" title="祭司 2026/07/02：修正後變強">△</a></td><td></td><td class="c-mixed"><a href="#祭司-사제" title="祭司 2026/07/16：有增有減">◆</a></td><td></td><td></td><td class="c-mixed"><a href="#祭司-사제" title="祭司 2026/08/13：有增有減">◆</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#修道士-수도사">修道士</a></th><td class="s-start"></td><td class="c-fixdown"><a href="#修道士-수도사" title="修道士 2025/04/10：修正後變弱">▽</a></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/05/08：增強">▲</a></td><td></td><td class="c-fix"><a href="#修道士-수도사" title="修道士 2025/05/29：僅改說明">·</a></td><td></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/07/17：增強">▲</a></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#修道士-수도사" title="修道士 2025/09/25：增強">▲</a></td><td class="c-fixdown"><a href="#修道士-수도사" title="修道士 2025/10/16：修正後變弱">▽</a></td><td></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/11/27：增強">▲</a></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/12/18：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#修道士-수도사" title="修道士 2026/06/25：有增有減">◆</a></td><td></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2026/07/16：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#暗黑術士-암흑술사">暗黑術士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="s-start"></td><td class="c-new"><a href="#暗黑術士-암흑술사" title="暗黑術士 2025/10/16：新增">＋</a></td><td class="c-fixup"><a href="#暗黑術士-암흑술사" title="暗黑術士 2025/10/30：修正後變強">△</a></td><td></td><td class="c-mixed"><a href="#暗黑術士-암흑술사" title="暗黑術士 2025/11/27：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/03/26：增強">▲</a></td><td></td><td class="c-mixed"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/05/21：有增有減">◆</a></td><td class="c-up s-start"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/08/13：增強">▲</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="grp" colspan="37"><span>吟遊詩人系</span></th></tr><tr><th class="cls"><a href="#吟遊詩人-음유시인">吟遊詩人</a></th><td class="s-start"></td><td></td><td class="c-mixed"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/04/24：有增有減">◆</a></td><td></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/05/29：增強">▲</a></td><td class="c-fixup"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/06/19：修正後變強">△</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/07/17：增強">▲</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/08/21：增強">▲</a></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/09/04：增強">▲</a></td><td class="c-mixed s-start"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/09/25：有增有減">◆</a></td><td class="c-fixdown"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/10/16：修正後變弱">▽</a></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/10/30：增強">▲</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/11/27：增強">▲</a></td><td class="c-fixup"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/12/18：修正後變強">△</a></td><td></td><td></td><td class="c-down"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/02/12：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/06/25：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/08/20：有增有減">◆</a></td><td></td><td class="c-fixup"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/09/17：修正後變強">△</a></td><td></td></tr><tr><th class="cls"><a href="#樂師-악사">樂師</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/05/15：增強">▲</a></td><td></td><td class="c-fixup"><a href="#樂師-악사" title="樂師 2025/06/19：修正後變強">△</a></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/07/17：增強">▲</a></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/07/31：增強">▲</a></td><td></td><td></td><td class="c-mixed s-start"><a href="#樂師-악사" title="樂師 2025/09/25：有增有減">◆</a></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/10/30：增強">▲</a></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/11/13：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#樂師-악사" title="樂師 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-fixup"><a href="#樂師-악사" title="樂師 2026/07/16：修正後變強">△</a></td><td class="c-fixup"><a href="#樂師-악사" title="樂師 2026/07/23：修正後變強">△</a></td><td></td><td></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2026/08/27：增強">▲</a></td><td></td><td></td></tr><tr><th class="cls"><a href="#舞者-댄서">舞者</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-mixed"><a href="#舞者-댄서" title="舞者 2025/05/15：有增有減">◆</a></td><td></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2025/06/19：增強">▲</a></td><td></td><td></td><td class="c-fixup"><a href="#舞者-댄서" title="舞者 2025/07/31：修正後變強">△</a></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#舞者-댄서" title="舞者 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#舞者-댄서" title="舞者 2026/02/12：有增有減">◆</a></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2026/03/12：增強">▲</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#舞者-댄서" title="舞者 2026/06/25：增強">▲</a></td><td></td><td class="c-fixup"><a href="#舞者-댄서" title="舞者 2026/07/09：修正後變強">△</a></td><td></td><td></td><td class="c-fixup"><a href="#舞者-댄서" title="舞者 2026/07/30：修正後變強">△</a></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2026/08/13：增強">▲</a></td><td class="c-mixed"><a href="#舞者-댄서" title="舞者 2026/08/20：有增有減">◆</a></td><td></td><td></td><td></td></tr><tr><th class="grp" colspan="37"><span>盜賊系</span></th></tr><tr><th class="cls"><a href="#盜賊-도적">盜賊</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/05/15：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/05/29：增強">▲</a></td><td class="c-fixdown"><a href="#盜賊-도적" title="盜賊 2025/06/19：修正後變弱">▽</a></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/07/17：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#盜賊-도적" title="盜賊 2025/09/25：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/10/16：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#盜賊-도적" title="盜賊 2026/02/12：有增有減">◆</a></td><td></td><td class="c-down"><a href="#盜賊-도적" title="盜賊 2026/03/26：削弱">▼</a></td><td></td><td></td><td class="c-up s-start"><a href="#盜賊-도적" title="盜賊 2026/06/25：增強">▲</a></td><td class="c-mixed"><a href="#盜賊-도적" title="盜賊 2026/07/02：有增有減">◆</a></td><td></td><td class="c-fixup"><a href="#盜賊-도적" title="盜賊 2026/07/16：修正後變強">△</a></td><td></td><td></td><td class="c-mixed"><a href="#盜賊-도적" title="盜賊 2026/08/13：有增有減">◆</a></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2026/08/27：增強">▲</a></td><td></td><td></td></tr><tr><th class="cls"><a href="#格鬥家-격투가">格鬥家</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td class="c-fixup"><a href="#格鬥家-격투가" title="格鬥家 2025/05/29：修正後變強">△</a></td><td class="c-down"><a href="#格鬥家-격투가" title="格鬥家 2025/06/19：削弱">▼</a></td><td class="c-fixup"><a href="#格鬥家-격투가" title="格鬥家 2025/07/03：修正後變強">△</a></td><td></td><td></td><td class="c-fixup"><a href="#格鬥家-격투가" title="格鬥家 2025/08/21：修正後變強">△</a></td><td></td><td class="c-up s-start"><a href="#格鬥家-격투가" title="格鬥家 2025/09/25：增強">▲</a></td><td class="c-fixdown"><a href="#格鬥家-격투가" title="格鬥家 2025/10/16：修正後變弱">▽</a></td><td></td><td></td><td class="c-fixup"><a href="#格鬥家-격투가" title="格鬥家 2025/11/27：修正後變強">△</a></td><td></td><td></td><td></td><td class="c-mixed"><a href="#格鬥家-격투가" title="格鬥家 2026/02/12：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-fixup"><a href="#格鬥家-격투가" title="格鬥家 2026/05/21：修正後變強">△</a></td><td class="c-up s-start"><a href="#格鬥家-격투가" title="格鬥家 2026/06/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#雙刀-듀얼블레이드">雙刀</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-mixed"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/05/15：有增有減">◆</a></td><td class="c-mixed"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/05/29：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/09/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/11/13：增強">▲</a></td><td></td><td></td><td></td><td class="c-fixup"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/01/29：修正後變強">△</a></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/03/12：增強">▲</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-fixup"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/07/16：修正後變強">△</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/08/13：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/09/17：增強">▲</a></td><td></td></tr></tbody></table></section>
+<section class="panel" id="改版總覽" data-title="改版總覽"><h2>改版總覽</h2><p>每一格是該職業在那次改版的整體方向，同一天同時有增強與削弱時算有增有減。點格子或職業名稱可跳到該職業的分頁；滑鼠停在格子上可看到當天的類型。</p><div class="legend"><span><i class="c-up"></i>增強</span><span><i class="c-mixed"></i>有增有減</span><span><i class="c-down"></i>削弱</span><span><i class="c-fix"></i>其他</span></div><table class="matrix"><thead><tr class="season"><th class="cls"></th><th colspan="12">S0</th><th colspan="13">S1</th><th colspan="11">S2</th></tr><tr class="dates"><th class="cls"></th><th>25/04/03</th><th>25/04/10</th><th>25/04/24</th><th>25/05/08</th><th>25/05/15</th><th>25/05/29</th><th>25/06/19</th><th>25/07/03</th><th>25/07/17</th><th>25/07/31</th><th>25/08/21</th><th>25/09/04</th><th>25/09/25</th><th>25/10/16</th><th>25/10/30</th><th>25/11/13</th><th>25/11/27</th><th>25/12/18</th><th>26/01/15</th><th>26/01/29</th><th>26/02/12</th><th>26/03/12</th><th>26/03/26</th><th>26/04/23</th><th>26/05/21</th><th>26/06/25</th><th>26/07/02</th><th>26/07/09</th><th>26/07/16</th><th>26/07/23</th><th>26/07/30</th><th>26/08/13</th><th>26/08/20</th><th>26/08/27</th><th>26/09/17</th><th>26/10/01</th></tr></thead><tbody><tr><th class="cls"><a href="#全職業共通變動">全職業共通變動</a></th><td class="s-start"></td><td></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/04/24：有增有減">◆</a></td><td></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2025/05/15：增強">▲</a></td><td class="c-down"><a href="#全職業共通變動" title="全職業共通變動 2025/05/29：削弱">▼</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2025/06/19：增強">▲</a></td><td></td><td></td><td></td><td class="c-fix"><a href="#全職業共通變動" title="全職業共通變動 2025/08/21：其他">·</a></td><td></td><td class="c-fix s-start"><a href="#全職業共通變動" title="全職業共通變動 2025/09/25：其他">·</a></td><td></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2025/10/30：增強">▲</a></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/11/13：有增有減">◆</a></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/11/27：有增有減">◆</a></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2025/12/18：有增有減">◆</a></td><td class="c-fix"><a href="#全職業共通變動" title="全職業共通變動 2026/01/15：其他">·</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/01/29：增強">▲</a></td><td></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/03/12：增強">▲</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/03/26：增強">▲</a></td><td class="c-fix"><a href="#全職業共通變動" title="全職業共通變動 2026/04/23：其他">·</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/05/21：增強">▲</a></td><td class="c-down s-start"><a href="#全職業共通變動" title="全職業共通變動 2026/06/25：削弱、其他">▼</a></td><td class="c-fix"><a href="#全職業共通變動" title="全職業共通變動 2026/07/02：其他">·</a></td><td class="c-down"><a href="#全職業共通變動" title="全職業共通變動 2026/07/09：削弱">▼</a></td><td class="c-up"><a href="#全職業共通變動" title="全職業共通變動 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2026/08/13：增強、削弱">◆</a></td><td class="c-down"><a href="#全職業共通變動" title="全職業共通變動 2026/08/20：削弱">▼</a></td><td></td><td class="c-mixed"><a href="#全職業共通變動" title="全職業共通變動 2026/09/17：削弱、增強">◆</a></td><td></td></tr><tr><th class="grp" colspan="37"><span>戰士系</span></th></tr><tr><th class="cls"><a href="#戰士-전사">戰士</a></th><td class="s-start"></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/05/08：增強">▲</a></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/05/15：增強">▲</a></td><td class="c-mixed"><a href="#戰士-전사" title="戰士 2025/05/29：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/07/31：增強">▲</a></td><td></td><td></td><td class="c-up s-start"><a href="#戰士-전사" title="戰士 2025/09/25：增強">▲</a></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2025/10/30：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2026/02/12：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#戰士-전사" title="戰士 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#戰士-전사" title="戰士 2026/07/16：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#大劍戰士-대검전사">大劍戰士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/06/19：增強">▲</a></td><td></td><td class="c-up"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/07/17：增強">▲</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#大劍戰士-대검전사" title="大劍戰士 2025/12/18：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/06/25：有增有減">◆</a></td><td class="c-up"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/07/02：增強">▲</a></td><td class="c-up"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/07/09：增強">▲</a></td><td class="c-mixed"><a href="#大劍戰士-대검전사" title="大劍戰士 2026/07/16：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#劍術師-검술사">劍術師</a></th><td class="s-start"></td><td class="c-down"><a href="#劍術師-검술사" title="劍術師 2025/04/10：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#劍術師-검술사" title="劍術師 2025/06/19：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#劍術師-검술사" title="劍術師 2025/09/25：有增有減">◆</a></td><td class="c-down"><a href="#劍術師-검술사" title="劍術師 2025/10/16：削弱">▼</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-fix s-start"><a href="#劍術師-검술사" title="劍術師 2026/06/25：其他">·</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#騎士-기사">騎士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-fix"><a href="#騎士-기사" title="騎士 2026/04/23：其他">·</a></td><td class="c-fix"><a href="#騎士-기사" title="騎士 2026/05/21：其他">·</a></td><td class="c-fix s-start"><a href="#騎士-기사" title="騎士 2026/06/25：其他">·</a></td><td></td><td></td><td class="c-up"><a href="#騎士-기사" title="騎士 2026/07/16：增強">▲</a></td><td></td><td class="c-up"><a href="#騎士-기사" title="騎士 2026/07/30：增強">▲</a></td><td></td><td class="c-down"><a href="#騎士-기사" title="騎士 2026/08/20：削弱">▼</a></td><td></td><td class="c-up"><a href="#騎士-기사" title="騎士 2026/09/17：增強">▲</a></td><td></td></tr><tr><th class="grp" colspan="37"><span>弓箭手系</span></th></tr><tr><th class="cls"><a href="#弓箭手-궁수">弓箭手</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#弓箭手-궁수" title="弓箭手 2025/06/19：有增有減">◆</a></td><td></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2025/07/17：增強">▲</a></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2025/07/31：增強">▲</a></td><td></td><td></td><td class="c-mixed s-start"><a href="#弓箭手-궁수" title="弓箭手 2025/09/25：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2026/03/12：增強">▲</a></td><td></td><td></td><td></td><td class="c-fix s-start"><a href="#弓箭手-궁수" title="弓箭手 2026/06/25：其他">·</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#弓箭手-궁수" title="弓箭手 2026/08/13：增強">▲</a></td><td class="c-mixed"><a href="#弓箭手-궁수" title="弓箭手 2026/08/20：有增有減">◆</a></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#弩手-석궁사수">弩手</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td class="c-down"><a href="#弩手-석궁사수" title="弩手 2025/05/29：削弱">▼</a></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2025/06/19：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#弩手-석궁사수" title="弩手 2025/09/25：增強">▲</a></td><td></td><td class="c-down"><a href="#弩手-석궁사수" title="弩手 2025/10/30：削弱">▼</a></td><td></td><td></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2025/12/18：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#弩手-석궁사수" title="弩手 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-mixed"><a href="#弩手-석궁사수" title="弩手 2026/08/13：有增有減">◆</a></td><td></td><td class="c-up"><a href="#弩手-석궁사수" title="弩手 2026/08/27：增強">▲</a></td><td class="c-down"><a href="#弩手-석궁사수" title="弩手 2026/09/17：削弱">▼</a></td><td></td></tr><tr><th class="cls"><a href="#長弓手-장궁병">長弓手</a></th><td class="c-up s-start"><a href="#長弓手-장궁병" title="長弓手 2025/04/03：增強">▲</a></td><td></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/04/24：有增有減">◆</a></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/05/08：有增有減">◆</a></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2025/05/15：增強">▲</a></td><td></td><td></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/07/03：有增有減">◆</a></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/07/17：有增有減">◆</a></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2025/07/31：有增有減">◆</a></td><td></td><td></td><td class="c-up s-start"><a href="#長弓手-장궁병" title="長弓手 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2025/12/18：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/02/12：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#長弓手-장궁병" title="長弓手 2026/06/25：增強">▲</a></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/07/02：增強">▲</a></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/07/16：增強">▲</a></td><td></td><td></td><td></td><td class="c-mixed"><a href="#長弓手-장궁병" title="長弓手 2026/08/20：有增有減">◆</a></td><td></td><td></td><td class="c-up"><a href="#長弓手-장궁병" title="長弓手 2026/10/01：增強">▲</a></td></tr><tr><th class="grp" colspan="37"><span>魔法師系</span></th></tr><tr><th class="cls"><a href="#魔法師-마법사">魔法師</a></th><td class="s-start"></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2025/04/10：有增有減">◆</a></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2025/04/24：增強">▲</a></td><td></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2025/05/15：增強">▲</a></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2025/05/29：增強">▲</a></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2025/06/19：有增有減">◆</a></td><td></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2025/07/31：有增有減">◆</a></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2025/08/21：增強">▲</a></td><td></td><td class="c-down s-start"><a href="#魔法師-마법사" title="魔法師 2025/09/25：削弱">▼</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#魔法師-마법사" title="魔法師 2026/01/15：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#魔法師-마법사" title="魔法師 2026/06/25：增強">▲</a></td><td></td><td></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2026/07/23：有增有減">◆</a></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2026/08/13：有增有減">◆</a></td><td></td><td></td><td class="c-mixed"><a href="#魔法師-마법사" title="魔法師 2026/09/17：有增有減">◆</a></td><td></td></tr><tr><th class="cls"><a href="#火焰術士-화염술사">火焰術士</a></th><td class="s-start"></td><td class="c-mixed"><a href="#火焰術士-화염술사" title="火焰術士 2025/04/10：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-down"><a href="#火焰術士-화염술사" title="火焰術士 2025/05/29：削弱">▼</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#火焰術士-화염술사" title="火焰術士 2025/09/04：有增有減">◆</a></td><td class="c-up s-start"><a href="#火焰術士-화염술사" title="火焰術士 2025/09/25：增強">▲</a></td><td class="c-mixed"><a href="#火焰術士-화염술사" title="火焰術士 2025/10/16：有增有減">◆</a></td><td class="c-up"><a href="#火焰術士-화염술사" title="火焰術士 2025/10/30：增強">▲</a></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#火焰術士-화염술사" title="火焰術士 2026/01/29：增強">▲</a></td><td></td><td class="c-fix"><a href="#火焰術士-화염술사" title="火焰術士 2026/03/12：其他">·</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#火焰術士-화염술사" title="火焰術士 2026/06/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#冰霜術士-빙결술사">冰霜術士</a></th><td class="s-start"></td><td></td><td class="c-up"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/04/24：增強">▲</a></td><td></td><td class="c-up"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/05/15：增強">▲</a></td><td class="c-up"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/05/29：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/09/25：有增有減">◆</a></td><td></td><td></td><td class="c-down"><a href="#冰霜術士-빙결술사" title="冰霜術士 2025/11/13：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-down"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/02/12：削弱">▼</a></td><td class="c-down"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/03/12：削弱">▼</a></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/06/25：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td class="c-fix"><a href="#冰霜術士-빙결술사" title="冰霜術士 2026/07/30：其他">·</a></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#電擊術士-전격술사">電擊術士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td class="c-fix"><a href="#電擊術士-전격술사" title="電擊術士 2025/06/19：其他">·</a></td><td class="c-mixed"><a href="#電擊術士-전격술사" title="電擊術士 2025/07/03：有增有減">◆</a></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/07/31：增強">▲</a></td><td></td><td></td><td class="c-down s-start"><a href="#電擊術士-전격술사" title="電擊術士 2025/09/25：削弱">▼</a></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/10/16：增強">▲</a></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/11/13：增強">▲</a></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2025/12/18：增強">▲</a></td><td></td><td></td><td class="c-down"><a href="#電擊術士-전격술사" title="電擊術士 2026/02/12：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-fix s-start"><a href="#電擊術士-전격술사" title="電擊術士 2026/06/25：其他">·</a></td><td></td><td></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2026/07/23：增強">▲</a></td><td></td><td class="c-up"><a href="#電擊術士-전격술사" title="電擊術士 2026/08/13：增強">▲</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="grp" colspan="37"><span>治癒師系</span></th></tr><tr><th class="cls"><a href="#治癒師-힐러">治癒師</a></th><td class="c-down s-start"><a href="#治癒師-힐러" title="治癒師 2025/04/03：削弱">▼</a></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2025/05/08：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2025/06/19：增強">▲</a></td><td></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#治癒師-힐러" title="治癒師 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2026/01/15：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#治癒師-힐러" title="治癒師 2026/06/25：增強">▲</a></td><td class="c-fix"><a href="#治癒師-힐러" title="治癒師 2026/07/02：其他">·</a></td><td></td><td class="c-up"><a href="#治癒師-힐러" title="治癒師 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-down"><a href="#治癒師-힐러" title="治癒師 2026/08/13：削弱">▼</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#祭司-사제">祭司</a></th><td class="s-start"></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/04/10：增強">▲</a></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/05/08：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/06/19：增強">▲</a></td><td></td><td class="c-mixed"><a href="#祭司-사제" title="祭司 2025/07/17：有增有減">◆</a></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/08/21：增強">▲</a></td><td></td><td class="c-mixed s-start"><a href="#祭司-사제" title="祭司 2025/09/25：有增有減">◆</a></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2025/10/30：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#祭司-사제" title="祭司 2026/03/26：增強">▲</a></td><td></td><td></td><td class="c-mixed s-start"><a href="#祭司-사제" title="祭司 2026/06/25：有增有減">◆</a></td><td class="c-up"><a href="#祭司-사제" title="祭司 2026/07/02：增強">▲</a></td><td></td><td class="c-mixed"><a href="#祭司-사제" title="祭司 2026/07/16：有增有減">◆</a></td><td></td><td></td><td class="c-mixed"><a href="#祭司-사제" title="祭司 2026/08/13：有增有減">◆</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#修道士-수도사">修道士</a></th><td class="s-start"></td><td class="c-down"><a href="#修道士-수도사" title="修道士 2025/04/10：削弱">▼</a></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/05/08：增強">▲</a></td><td></td><td class="c-fix"><a href="#修道士-수도사" title="修道士 2025/05/29：其他">·</a></td><td></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/07/17：增強">▲</a></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#修道士-수도사" title="修道士 2025/09/25：增強">▲</a></td><td class="c-down"><a href="#修道士-수도사" title="修道士 2025/10/16：削弱">▼</a></td><td></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/11/27：增強">▲</a></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2025/12/18：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#修道士-수도사" title="修道士 2026/06/25：有增有減">◆</a></td><td></td><td></td><td class="c-up"><a href="#修道士-수도사" title="修道士 2026/07/16：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#暗黑術士-암흑술사">暗黑術士</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="s-start"></td><td class="c-fix"><a href="#暗黑術士-암흑술사" title="暗黑術士 2025/10/16：其他">·</a></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2025/10/30：增強">▲</a></td><td></td><td class="c-mixed"><a href="#暗黑術士-암흑술사" title="暗黑術士 2025/11/27：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/03/26：增強">▲</a></td><td></td><td class="c-mixed"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/05/21：有增有減">◆</a></td><td class="c-up s-start"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#暗黑術士-암흑술사" title="暗黑術士 2026/08/13：增強">▲</a></td><td></td><td></td><td></td><td></td></tr><tr><th class="grp" colspan="37"><span>吟遊詩人系</span></th></tr><tr><th class="cls"><a href="#吟遊詩人-음유시인">吟遊詩人</a></th><td class="s-start"></td><td></td><td class="c-mixed"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/04/24：有增有減">◆</a></td><td></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/05/29：增強">▲</a></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/06/19：增強">▲</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/07/17：增強">▲</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/08/21：增強">▲</a></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/09/04：增強">▲</a></td><td class="c-mixed s-start"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/09/25：有增有減">◆</a></td><td class="c-down"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/10/16：削弱">▼</a></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/10/30：增強">▲</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/11/27：增強">▲</a></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2025/12/18：增強">▲</a></td><td></td><td></td><td class="c-down"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/02/12：削弱">▼</a></td><td></td><td></td><td></td><td></td><td class="c-mixed s-start"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/06/25：有增有減">◆</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/08/20：有增有減">◆</a></td><td></td><td class="c-up"><a href="#吟遊詩人-음유시인" title="吟遊詩人 2026/09/17：增強">▲</a></td><td></td></tr><tr><th class="cls"><a href="#樂師-악사">樂師</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/05/15：增強">▲</a></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/06/19：增強">▲</a></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/07/17：增強">▲</a></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/07/31：增強">▲</a></td><td></td><td></td><td class="c-mixed s-start"><a href="#樂師-악사" title="樂師 2025/09/25：有增有減">◆</a></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/10/30：增強">▲</a></td><td class="c-up"><a href="#樂師-악사" title="樂師 2025/11/13：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#樂師-악사" title="樂師 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2026/07/16：增強">▲</a></td><td class="c-up"><a href="#樂師-악사" title="樂師 2026/07/23：增強">▲</a></td><td></td><td></td><td></td><td class="c-up"><a href="#樂師-악사" title="樂師 2026/08/27：增強">▲</a></td><td></td><td></td></tr><tr><th class="cls"><a href="#舞者-댄서">舞者</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-mixed"><a href="#舞者-댄서" title="舞者 2025/05/15：有增有減">◆</a></td><td></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2025/06/19：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#舞者-댄서" title="舞者 2025/09/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#舞者-댄서" title="舞者 2026/02/12：有增有減">◆</a></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2026/03/12：增強">▲</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#舞者-댄서" title="舞者 2026/06/25：增強">▲</a></td><td></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2026/07/09：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2026/07/30：增強">▲</a></td><td class="c-up"><a href="#舞者-댄서" title="舞者 2026/08/13：增強">▲</a></td><td class="c-mixed"><a href="#舞者-댄서" title="舞者 2026/08/20：有增有減">◆</a></td><td></td><td></td><td></td></tr><tr><th class="grp" colspan="37"><span>盜賊系</span></th></tr><tr><th class="cls"><a href="#盜賊-도적">盜賊</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/05/15：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/05/29：增強">▲</a></td><td class="c-down"><a href="#盜賊-도적" title="盜賊 2025/06/19：削弱">▼</a></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/07/17：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#盜賊-도적" title="盜賊 2025/09/25：增強">▲</a></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2025/10/16：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="c-mixed"><a href="#盜賊-도적" title="盜賊 2026/02/12：有增有減">◆</a></td><td></td><td class="c-down"><a href="#盜賊-도적" title="盜賊 2026/03/26：削弱">▼</a></td><td></td><td></td><td class="c-up s-start"><a href="#盜賊-도적" title="盜賊 2026/06/25：增強">▲</a></td><td class="c-mixed"><a href="#盜賊-도적" title="盜賊 2026/07/02：有增有減">◆</a></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-mixed"><a href="#盜賊-도적" title="盜賊 2026/08/13：有增有減">◆</a></td><td></td><td class="c-up"><a href="#盜賊-도적" title="盜賊 2026/08/27：增強">▲</a></td><td></td><td></td></tr><tr><th class="cls"><a href="#格鬥家-격투가">格鬥家</a></th><td class="s-start"></td><td></td><td></td><td></td><td></td><td class="c-up"><a href="#格鬥家-격투가" title="格鬥家 2025/05/29：增強">▲</a></td><td class="c-down"><a href="#格鬥家-격투가" title="格鬥家 2025/06/19：削弱">▼</a></td><td class="c-up"><a href="#格鬥家-격투가" title="格鬥家 2025/07/03：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#格鬥家-격투가" title="格鬥家 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#格鬥家-격투가" title="格鬥家 2025/09/25：增強">▲</a></td><td class="c-down"><a href="#格鬥家-격투가" title="格鬥家 2025/10/16：削弱">▼</a></td><td></td><td></td><td class="c-up"><a href="#格鬥家-격투가" title="格鬥家 2025/11/27：增強">▲</a></td><td></td><td></td><td></td><td class="c-mixed"><a href="#格鬥家-격투가" title="格鬥家 2026/02/12：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-up"><a href="#格鬥家-격투가" title="格鬥家 2026/05/21：增強">▲</a></td><td class="c-up s-start"><a href="#格鬥家-격투가" title="格鬥家 2026/06/25：增強">▲</a></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th class="cls"><a href="#雙刀-듀얼블레이드">雙刀</a></th><td class="s-start"></td><td></td><td></td><td></td><td class="c-mixed"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/05/15：有增有減">◆</a></td><td class="c-mixed"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/05/29：有增有減">◆</a></td><td></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/07/31：增強">▲</a></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/08/21：增強">▲</a></td><td></td><td class="c-up s-start"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/09/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2025/11/13：增強">▲</a></td><td></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/01/29：增強">▲</a></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/03/12：增強">▲</a></td><td></td><td></td><td></td><td class="c-up s-start"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/06/25：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/07/16：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/08/13：增強">▲</a></td><td></td><td></td><td class="c-up"><a href="#雙刀-듀얼블레이드" title="雙刀 2026/09/17：增強">▲</a></td><td></td></tr></tbody></table></section>
+<section class="panel" id="s2-職業強度" data-title="S2 職業強度"><h2>S2 職業強度</h2>
+<p>2026/09/17～10/15 這一期排名的頂端玩家成績，資料取自兩個粉絲網站（2026/10/14）。成績混有裝備與玩家人數的影響，只適合當選職業的參考；10/15 改版後的變化不在其中。</p>
+<p>職業強度看兩項：</p>
+<ul>
+<li>通關實力：Nightmare Drill 前 10 名玩家平均打到第幾層。Nightmare Drill 是單人挑戰，結算不分定位，21 個職業一起排名。到 10/14 為止玩家打到的最高是 30 層；打到同一層時再比通關時間，例如 1:07.21 是 1 分 7.21 秒。</li>
+<li>團戰 DPS：卡布拉克困難與艾瑞爾非常困難兩個 Raid 的 DPS（每秒傷害，M = 百萬），取每個職業前 10 名玩家的中位數。團戰結算依定位分開，所以輸出、坦克、治癒各自排名。</li>
+</ul>
+<h4 id="結論">結論</h4>
+<ul>
+<li>Nightmare Drill：戰士、弓箭手、暗黑術士的前 10 名平均都打到 30.0 層，是 21 個職業的前三名。最後三名是盜賊、電擊術士、格鬥家（26.4～26.6 層）。治癒職業中最前面的是祭司（28.8 層，第 7 名）。</li>
+<li>團戰 DPS：輸出組在卡布拉克與艾瑞爾兩個 Raid 都是弓箭手第一（54.3M、28.2M）、暗黑術士第二（51.5M、24.8M）。卡布拉克的第 3、4 名是大劍戰士與舞者，艾瑞爾是雙刀與弩手；最後一名兩個 Raid 都是電擊術士。坦克組兩個 Raid 都是戰士第一（26.7M、9.6M），治癒組都是修道士第一（26.9M、17.7M）、祭司第二。</li>
+</ul>
+<h4 id="nightmare-drill-排行">Nightmare Drill 排行</h4>
+<figure class="chart"><figcaption>Nightmare Drill 排行（모비라이프，2026/10/14）</figcaption><p class="chart-note top">單人挑戰，結算不分定位，21 個職業一起排名。</p><div class="dots has-ext" style="--gs:25.0000%"><div class="dot-head"><span class="lbl"></span><span>前 10 名平均層數</span><span class="ext">第 1 名（層、時間）</span></div><div class="dot-row" title="戰士：前 10 名平均 30.0 層；第 1 名 30 層 1:07.21；第 100 名門檻 26 層 0:53.13"><span class="lbl">1. 戰士</span><span class="track"><span class="dot" style="left:100.00%"></span><span class="val" style="left:100.00%">30.0</span></span><span class="ext">30 層 1:07.21</span></div><div class="dot-row" title="弓箭手：前 10 名平均 30.0 層；第 1 名 30 層 1:12.02；第 100 名門檻 26 層 1:21.78"><span class="lbl">2. 弓箭手</span><span class="track"><span class="dot" style="left:100.00%"></span><span class="val" style="left:100.00%">30.0</span></span><span class="ext">30 層 1:12.02</span></div><div class="dot-row" title="暗黑術士：前 10 名平均 30.0 層；第 1 名 30 層 1:11.62；第 100 名門檻 26 層 1:31.17"><span class="lbl">3. 暗黑術士</span><span class="track"><span class="dot" style="left:100.00%"></span><span class="val" style="left:100.00%">30.0</span></span><span class="ext">30 層 1:11.62</span></div><div class="dot-row" title="劍術師：前 10 名平均 29.7 層；第 1 名 30 層 1:37.56；第 100 名門檻 25 層 1:58.10"><span class="lbl">4. 劍術師</span><span class="track"><span class="dot" style="left:92.50%"></span><span class="val" style="left:92.50%">29.7</span></span><span class="ext">30 層 1:37.56</span></div><div class="dot-row" title="大劍戰士：前 10 名平均 29.5 層；第 1 名 30 層 1:26.27；第 100 名門檻 25 層 1:08.43"><span class="lbl">5. 大劍戰士</span><span class="track"><span class="dot" style="left:87.50%"></span><span class="val" style="left:87.50%">29.5</span></span><span class="ext">30 層 1:26.27</span></div><div class="dot-row" title="魔法師：前 10 名平均 29.1 層；第 1 名 30 層 1:24.96；第 100 名門檻 24 層 0:49.46"><span class="lbl">6. 魔法師</span><span class="track"><span class="dot" style="left:77.50%"></span><span class="val" style="left:77.50%">29.1</span></span><span class="ext">30 層 1:24.96</span></div><div class="dot-row" title="祭司：前 10 名平均 28.8 層；第 1 名 30 層 1:41.90；第 100 名門檻 25 層 1:25.85"><span class="lbl">7. 祭司</span><span class="track"><span class="dot" style="left:70.00%"></span><span class="val" style="left:70.00%">28.8</span></span><span class="ext">30 層 1:41.90</span></div><div class="dot-row" title="雙刀：前 10 名平均 28.8 層；第 1 名 30 層 1:48.50；第 100 名門檻 25 層 1:58.02"><span class="lbl">8. 雙刀</span><span class="track"><span class="dot" style="left:70.00%"></span><span class="val" style="left:70.00%">28.8</span></span><span class="ext">30 層 1:48.50</span></div><div class="dot-row" title="吟遊詩人：前 10 名平均 28.6 層；第 1 名 29 層 1:44.80；第 100 名門檻 24 層 1:17.30"><span class="lbl">9. 吟遊詩人</span><span class="track"><span class="dot" style="left:65.00%"></span><span class="val" style="left:65.00%">28.6</span></span><span class="ext">29 層 1:44.80</span></div><div class="dot-row" title="弩手：前 10 名平均 28.5 層；第 1 名 29 層 1:48.28；第 100 名門檻 25 層 1:31.51"><span class="lbl">10. 弩手</span><span class="track"><span class="dot" style="left:62.50%"></span><span class="val" style="left:62.50%">28.5</span></span><span class="ext">29 層 1:48.28</span></div><div class="dot-row" title="火焰術士：前 10 名平均 28.5 層；第 1 名 29 層 1:50.94；第 100 名門檻 25 層 1:41.59"><span class="lbl">11. 火焰術士</span><span class="track"><span class="dot" style="left:62.50%"></span><span class="val" style="left:62.50%">28.5</span></span><span class="ext">29 層 1:50.94</span></div><div class="dot-row" title="冰霜術士：前 10 名平均 28.3 層；第 1 名 29 層 1:52.95；第 100 名門檻 25 層 1:40.13"><span class="lbl">12. 冰霜術士</span><span class="track"><span class="dot" style="left:57.50%"></span><span class="val" style="left:57.50%">28.3</span></span><span class="ext">29 層 1:52.95</span></div><div class="dot-row" title="長弓手：前 10 名平均 28.0 層；第 1 名 30 層 1:59.58；第 100 名門檻 24 層 1:30.90"><span class="lbl">13. 長弓手</span><span class="track"><span class="dot" style="left:50.00%"></span><span class="val" style="left:50.00%">28.0</span></span><span class="ext">30 層 1:59.58</span></div><div class="dot-row" title="治癒師：前 10 名平均 27.9 層；第 1 名 29 層 1:49.83；第 100 名門檻 24 層 1:38.53"><span class="lbl">14. 治癒師</span><span class="track"><span class="dot" style="left:47.50%"></span><span class="val" style="left:47.50%">27.9</span></span><span class="ext">29 層 1:49.83</span></div><div class="dot-row" title="修道士：前 10 名平均 27.7 層；第 1 名 30 層 1:50.77；第 100 名門檻 24 層 1:07.38"><span class="lbl">15. 修道士</span><span class="track"><span class="dot" style="left:42.50%"></span><span class="val" style="left:42.50%">27.7</span></span><span class="ext">30 層 1:50.77</span></div><div class="dot-row" title="舞者：前 10 名平均 27.4 層；第 1 名 30 層 1:49.29；第 100 名門檻 24 層 1:16.54"><span class="lbl">16. 舞者</span><span class="track"><span class="dot" style="left:35.00%"></span><span class="val" style="left:35.00%">27.4</span></span><span class="ext">30 層 1:49.29</span></div><div class="dot-row" title="騎士：前 10 名平均 27.2 層；第 1 名 29 層 1:57.25；第 100 名門檻 24 層 1:33.54"><span class="lbl">17. 騎士</span><span class="track"><span class="dot" style="left:30.00%"></span><span class="val" style="left:30.00%">27.2</span></span><span class="ext">29 層 1:57.25</span></div><div class="dot-row" title="樂師：前 10 名平均 27.1 層；第 1 名 29 層 1:43.22；第 100 名門檻 24 層 1:06.53"><span class="lbl">18. 樂師</span><span class="track"><span class="dot" style="left:27.50%"></span><span class="val" style="left:27.50%">27.1</span></span><span class="ext">29 層 1:43.22</span></div><div class="dot-row" title="盜賊：前 10 名平均 26.6 層；第 1 名 29 層 1:53.35；第 100 名門檻 24 層 1:37.96"><span class="lbl">19. 盜賊</span><span class="track"><span class="dot" style="left:15.00%"></span><span class="val" style="left:15.00%">26.6</span></span><span class="ext">29 層 1:53.35</span></div><div class="dot-row" title="電擊術士：前 10 名平均 26.5 層；第 1 名 29 層 1:32.88；第 100 名門檻 24 層 1:36.06"><span class="lbl">20. 電擊術士</span><span class="track"><span class="dot" style="left:12.50%"></span><span class="val" style="left:12.50%">26.5</span></span><span class="ext">29 層 1:32.88</span></div><div class="dot-row" title="格鬥家：前 10 名平均 26.4 層；第 1 名 29 層 1:58.61；第 100 名門檻 24 層 1:48.03"><span class="lbl">21. 格鬥家</span><span class="track"><span class="dot" style="left:10.00%"></span><span class="val" style="left:10.00%">26.4</span></span><span class="ext">29 層 1:58.61</span></div><div class="dot-axis"><span class="lbl"></span><span class="track"><span style="left:0.00%">26</span><span style="left:25.00%">27</span><span style="left:50.00%">28</span><span style="left:75.00%">29</span><span style="left:100.00%">30</span></span><span></span></div></div><p class="chart-note">依前 10 名平均層數排序，同層數再比第 100 名的層數與時間。橫軸從 26 層開始，所有職業都落在 26.4～30.0 層之間。時間如 1:07.21 代表 1 分 7.21 秒。</p></figure>
+
+<details>
+<summary>數據表</summary>
+<table>
+<thead>
+<tr>
+<th>職業</th>
+<th>第 1 名（層、時間）</th>
+<th>第 10 名（層、時間）</th>
+<th>第 100 名門檻（層、時間）</th>
+<th>前 10 平均層數（層）</th>
+<th>全服前 100 名人數（人）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>戰士</td>
+<td>30 層 1:07.21</td>
+<td>30 層 1:15.95</td>
+<td>26 層 0:53.13</td>
+<td>30.0</td>
+<td>20</td>
+</tr>
+<tr>
+<td>暗黑術士</td>
+<td>30 層 1:11.62</td>
+<td>30 層 1:48.20</td>
+<td>26 層 1:31.17</td>
+<td>30.0</td>
+<td>27</td>
+</tr>
+<tr>
+<td>弓箭手</td>
+<td>30 層 1:12.02</td>
+<td>30 層 1:19.70</td>
+<td>26 層 1:21.78</td>
+<td>30.0</td>
+<td>33</td>
+</tr>
+<tr>
+<td>魔法師</td>
+<td>30 層 1:24.96</td>
+<td>28 層 1:35.23</td>
+<td>24 層 0:49.46</td>
+<td>29.1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>大劍戰士</td>
+<td>30 層 1:26.27</td>
+<td>29 層 1:55.91</td>
+<td>25 層 1:08.43</td>
+<td>29.5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>劍術師</td>
+<td>30 層 1:37.56</td>
+<td>29 層 1:49.31</td>
+<td>25 層 1:58.10</td>
+<td>29.7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>祭司</td>
+<td>30 層 1:41.90</td>
+<td>28 層 1:13.31</td>
+<td>25 層 1:25.85</td>
+<td>28.8</td>
+<td>2</td>
+</tr>
+<tr>
+<td>雙刀</td>
+<td>30 層 1:48.50</td>
+<td>28 層 1:37.80</td>
+<td>25 層 1:58.02</td>
+<td>28.8</td>
+<td>1</td>
+</tr>
+<tr>
+<td>舞者</td>
+<td>30 層 1:49.29</td>
+<td>26 層 1:30.46</td>
+<td>24 層 1:16.54</td>
+<td>27.4</td>
+<td>1</td>
+</tr>
+<tr>
+<td>修道士</td>
+<td>30 層 1:50.77</td>
+<td>26 層 1:48.77</td>
+<td>24 層 1:07.38</td>
+<td>27.7</td>
+<td>2</td>
+</tr>
+<tr>
+<td>長弓手</td>
+<td>30 層 1:59.58</td>
+<td>26 層 1:24.43</td>
+<td>24 層 1:30.90</td>
+<td>28.0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>電擊術士</td>
+<td>29 層 1:32.88</td>
+<td>26 層 1:39.63</td>
+<td>24 層 1:36.06</td>
+<td>26.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>樂師</td>
+<td>29 層 1:43.22</td>
+<td>26 層 1:33.20</td>
+<td>24 層 1:06.53</td>
+<td>27.1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>吟遊詩人</td>
+<td>29 層 1:44.80</td>
+<td>28 層 1:21.23</td>
+<td>24 層 1:17.30</td>
+<td>28.6</td>
+<td>0</td>
+</tr>
+<tr>
+<td>弩手</td>
+<td>29 層 1:48.28</td>
+<td>28 層 1:38.51</td>
+<td>25 層 1:31.51</td>
+<td>28.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>治癒師</td>
+<td>29 層 1:49.83</td>
+<td>26 層 1:41.25</td>
+<td>24 層 1:38.53</td>
+<td>27.9</td>
+<td>0</td>
+</tr>
+<tr>
+<td>火焰術士</td>
+<td>29 層 1:50.94</td>
+<td>28 層 1:30.25</td>
+<td>25 層 1:41.59</td>
+<td>28.5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>冰霜術士</td>
+<td>29 層 1:52.95</td>
+<td>27 層 1:59.20</td>
+<td>25 層 1:40.13</td>
+<td>28.3</td>
+<td>0</td>
+</tr>
+<tr>
+<td>盜賊</td>
+<td>29 層 1:53.35</td>
+<td>26 層 1:50.64</td>
+<td>24 層 1:37.96</td>
+<td>26.6</td>
+<td>0</td>
+</tr>
+<tr>
+<td>騎士</td>
+<td>29 層 1:57.25</td>
+<td>26 層 1:31.35</td>
+<td>24 層 1:33.54</td>
+<td>27.2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>格鬥家</td>
+<td>29 層 1:58.61</td>
+<td>25 層 1:08.10</td>
+<td>24 層 1:48.03</td>
+<td>26.4</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h4 id="團戰-dps-排行">團戰 DPS 排行</h4>
+<figure class="chart"><figcaption>團戰 DPS 排行（모비스코어，2026/09/17～10/14）</figcaption><p class="chart-note top">團戰結算依定位分開，所以輸出、坦克、治癒各自排名。</p><div class="sm-grid"><div class="small-multiple"><div class="sm-title">卡布拉克 困難</div><div class="sm-note">前 10 名 DPS 中位數（M = 百萬）</div><div class="bar-group">輸出</div><div class="bar-row" title="弓箭手（輸出）：54.3M"><span class="lbl">弓箭手</span><span class="track"><span class="bar role-dealer" style="width:100.0%"></span><span class="val">54.3M</span></span></div><div class="bar-row" title="暗黑術士（輸出）：51.5M"><span class="lbl">暗黑術士</span><span class="track"><span class="bar role-dealer" style="width:94.8%"></span><span class="val">51.5M</span></span></div><div class="bar-row" title="大劍戰士（輸出）：43.4M"><span class="lbl">大劍戰士</span><span class="track"><span class="bar role-dealer" style="width:79.9%"></span><span class="val">43.4M</span></span></div><div class="bar-row" title="舞者（輸出）：41.8M"><span class="lbl">舞者</span><span class="track"><span class="bar role-dealer" style="width:77.0%"></span><span class="val">41.8M</span></span></div><div class="bar-row" title="雙刀（輸出）：39.8M"><span class="lbl">雙刀</span><span class="track"><span class="bar role-dealer" style="width:73.2%"></span><span class="val">39.8M</span></span></div><div class="bar-row" title="弩手（輸出）：34.7M"><span class="lbl">弩手</span><span class="track"><span class="bar role-dealer" style="width:63.9%"></span><span class="val">34.7M</span></span></div><div class="bar-row" title="樂師（輸出）：32.7M"><span class="lbl">樂師</span><span class="track"><span class="bar role-dealer" style="width:60.2%"></span><span class="val">32.7M</span></span></div><div class="bar-row" title="劍術師（輸出）：31.1M"><span class="lbl">劍術師</span><span class="track"><span class="bar role-dealer" style="width:57.2%"></span><span class="val">31.1M</span></span></div><div class="bar-row" title="火焰術士（輸出）：30.1M"><span class="lbl">火焰術士</span><span class="track"><span class="bar role-dealer" style="width:55.4%"></span><span class="val">30.1M</span></span></div><div class="bar-row" title="盜賊（輸出）：29.4M"><span class="lbl">盜賊</span><span class="track"><span class="bar role-dealer" style="width:54.1%"></span><span class="val">29.4M</span></span></div><div class="bar-row" title="格鬥家（輸出）：29.4M"><span class="lbl">格鬥家</span><span class="track"><span class="bar role-dealer" style="width:54.0%"></span><span class="val">29.4M</span></span></div><div class="bar-row" title="魔法師（輸出）：28.7M"><span class="lbl">魔法師</span><span class="track"><span class="bar role-dealer" style="width:52.9%"></span><span class="val">28.7M</span></span></div><div class="bar-row" title="長弓手（輸出）：28.3M"><span class="lbl">長弓手</span><span class="track"><span class="bar role-dealer" style="width:52.1%"></span><span class="val">28.3M</span></span></div><div class="bar-row" title="電擊術士（輸出）：22.3M"><span class="lbl">電擊術士</span><span class="track"><span class="bar role-dealer" style="width:41.1%"></span><span class="val">22.3M</span></span></div><div class="bar-group">坦克</div><div class="bar-row" title="戰士（坦克）：26.7M"><span class="lbl">戰士</span><span class="track"><span class="bar role-tank" style="width:49.1%"></span><span class="val">26.7M</span></span></div><div class="bar-row" title="騎士（坦克）：15.0M"><span class="lbl">騎士</span><span class="track"><span class="bar role-tank" style="width:27.6%"></span><span class="val">15.0M</span></span></div><div class="bar-row" title="冰霜術士（坦克）：14.2M"><span class="lbl">冰霜術士</span><span class="track"><span class="bar role-tank" style="width:26.1%"></span><span class="val">14.2M</span></span></div><div class="bar-group">治癒</div><div class="bar-row" title="修道士（治癒）：26.9M"><span class="lbl">修道士</span><span class="track"><span class="bar role-healer" style="width:49.5%"></span><span class="val">26.9M</span></span></div><div class="bar-row" title="祭司（治癒）：22.4M"><span class="lbl">祭司</span><span class="track"><span class="bar role-healer" style="width:41.2%"></span><span class="val">22.4M</span></span></div><div class="bar-row" title="治癒師（治癒）：18.3M"><span class="lbl">治癒師</span><span class="track"><span class="bar role-healer" style="width:33.8%"></span><span class="val">18.3M</span></span></div><div class="bar-row" title="吟遊詩人（治癒）：14.6M"><span class="lbl">吟遊詩人</span><span class="track"><span class="bar role-healer" style="width:26.9%"></span><span class="val">14.6M</span></span></div></div><div class="small-multiple"><div class="sm-title">艾瑞爾 非常困難</div><div class="sm-note">前 10 名 DPS 中位數（M = 百萬）</div><div class="bar-group">輸出</div><div class="bar-row" title="弓箭手（輸出）：28.2M"><span class="lbl">弓箭手</span><span class="track"><span class="bar role-dealer" style="width:100.0%"></span><span class="val">28.2M</span></span></div><div class="bar-row" title="暗黑術士（輸出）：24.8M"><span class="lbl">暗黑術士</span><span class="track"><span class="bar role-dealer" style="width:87.9%"></span><span class="val">24.8M</span></span></div><div class="bar-row" title="雙刀（輸出）：22.5M"><span class="lbl">雙刀</span><span class="track"><span class="bar role-dealer" style="width:79.8%"></span><span class="val">22.5M</span></span></div><div class="bar-row" title="弩手（輸出）：21.9M"><span class="lbl">弩手</span><span class="track"><span class="bar role-dealer" style="width:77.7%"></span><span class="val">21.9M</span></span></div><div class="bar-row" title="樂師（輸出）：19.1M"><span class="lbl">樂師</span><span class="track"><span class="bar role-dealer" style="width:67.8%"></span><span class="val">19.1M</span></span></div><div class="bar-row" title="大劍戰士（輸出）：18.6M"><span class="lbl">大劍戰士</span><span class="track"><span class="bar role-dealer" style="width:66.0%"></span><span class="val">18.6M</span></span></div><div class="bar-row" title="舞者（輸出）：18.6M"><span class="lbl">舞者</span><span class="track"><span class="bar role-dealer" style="width:65.8%"></span><span class="val">18.6M</span></span></div><div class="bar-row" title="盜賊（輸出）：18.4M"><span class="lbl">盜賊</span><span class="track"><span class="bar role-dealer" style="width:65.2%"></span><span class="val">18.4M</span></span></div><div class="bar-row" title="魔法師（輸出）：18.4M"><span class="lbl">魔法師</span><span class="track"><span class="bar role-dealer" style="width:65.2%"></span><span class="val">18.4M</span></span></div><div class="bar-row" title="格鬥家（輸出）：16.9M"><span class="lbl">格鬥家</span><span class="track"><span class="bar role-dealer" style="width:59.8%"></span><span class="val">16.9M</span></span></div><div class="bar-row" title="長弓手（輸出）：16.5M"><span class="lbl">長弓手</span><span class="track"><span class="bar role-dealer" style="width:58.4%"></span><span class="val">16.5M</span></span></div><div class="bar-row" title="火焰術士（輸出）：15.4M"><span class="lbl">火焰術士</span><span class="track"><span class="bar role-dealer" style="width:54.6%"></span><span class="val">15.4M</span></span></div><div class="bar-row" title="劍術師（輸出）：12.1M"><span class="lbl">劍術師</span><span class="track"><span class="bar role-dealer" style="width:43.0%"></span><span class="val">12.1M</span></span></div><div class="bar-row" title="電擊術士（輸出）：10.6M"><span class="lbl">電擊術士</span><span class="track"><span class="bar role-dealer" style="width:37.7%"></span><span class="val">10.6M</span></span></div><div class="bar-group">坦克</div><div class="bar-row" title="戰士（坦克）：9.6M"><span class="lbl">戰士</span><span class="track"><span class="bar role-tank" style="width:34.2%"></span><span class="val">9.6M</span></span></div><div class="bar-row" title="冰霜術士（坦克）：9.1M"><span class="lbl">冰霜術士</span><span class="track"><span class="bar role-tank" style="width:32.4%"></span><span class="val">9.1M</span></span></div><div class="bar-row" title="騎士（坦克）：6.0M"><span class="lbl">騎士</span><span class="track"><span class="bar role-tank" style="width:21.4%"></span><span class="val">6.0M</span></span></div><div class="bar-group">治癒</div><div class="bar-row" title="修道士（治癒）：17.7M"><span class="lbl">修道士</span><span class="track"><span class="bar role-healer" style="width:62.8%"></span><span class="val">17.7M</span></span></div><div class="bar-row" title="祭司（治癒）：15.6M"><span class="lbl">祭司</span><span class="track"><span class="bar role-healer" style="width:55.4%"></span><span class="val">15.6M</span></span></div><div class="bar-row" title="治癒師（治癒）：11.5M"><span class="lbl">治癒師</span><span class="track"><span class="bar role-healer" style="width:40.7%"></span><span class="val">11.5M</span></span></div><div class="bar-row" title="吟遊詩人（治癒）：9.6M"><span class="lbl">吟遊詩人</span><span class="track"><span class="bar role-healer" style="width:34.0%"></span><span class="val">9.6M</span></span></div></div></div></figure>
+
+<details>
+<summary>數據表</summary>
+<table>
+<thead>
+<tr>
+<th>職業</th>
+<th>定位</th>
+<th>卡布拉克 前 10 名 DPS 中位數</th>
+<th>玩家數（人）</th>
+<th>艾瑞爾 前 10 名 DPS 中位數</th>
+<th>玩家數（人）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>弓箭手</td>
+<td>輸出</td>
+<td>54.3M</td>
+<td>174</td>
+<td>28.2M</td>
+<td>186</td>
+</tr>
+<tr>
+<td>暗黑術士</td>
+<td>輸出</td>
+<td>51.5M</td>
+<td>206</td>
+<td>24.8M</td>
+<td>194</td>
+</tr>
+<tr>
+<td>大劍戰士</td>
+<td>輸出</td>
+<td>43.4M</td>
+<td>111</td>
+<td>18.6M</td>
+<td>108</td>
+</tr>
+<tr>
+<td>舞者</td>
+<td>輸出</td>
+<td>41.8M</td>
+<td>48</td>
+<td>18.6M</td>
+<td>50</td>
+</tr>
+<tr>
+<td>雙刀</td>
+<td>輸出</td>
+<td>39.8M</td>
+<td>104</td>
+<td>22.5M</td>
+<td>83</td>
+</tr>
+<tr>
+<td>弩手</td>
+<td>輸出</td>
+<td>34.7M</td>
+<td>152</td>
+<td>21.9M</td>
+<td>157</td>
+</tr>
+<tr>
+<td>樂師</td>
+<td>輸出</td>
+<td>32.7M</td>
+<td>63</td>
+<td>19.1M</td>
+<td>61</td>
+</tr>
+<tr>
+<td>劍術師</td>
+<td>輸出</td>
+<td>31.1M</td>
+<td>97</td>
+<td>12.1M</td>
+<td>97</td>
+</tr>
+<tr>
+<td>火焰術士</td>
+<td>輸出</td>
+<td>30.1M</td>
+<td>136</td>
+<td>15.4M</td>
+<td>131</td>
+</tr>
+<tr>
+<td>盜賊</td>
+<td>輸出</td>
+<td>29.4M</td>
+<td>63</td>
+<td>18.4M</td>
+<td>59</td>
+</tr>
+<tr>
+<td>格鬥家</td>
+<td>輸出</td>
+<td>29.4M</td>
+<td>40</td>
+<td>16.9M</td>
+<td>41</td>
+</tr>
+<tr>
+<td>魔法師</td>
+<td>輸出</td>
+<td>28.7M</td>
+<td>46</td>
+<td>18.4M</td>
+<td>56</td>
+</tr>
+<tr>
+<td>長弓手</td>
+<td>輸出</td>
+<td>28.3M</td>
+<td>47</td>
+<td>16.5M</td>
+<td>49</td>
+</tr>
+<tr>
+<td>修道士</td>
+<td>治癒</td>
+<td>26.9M</td>
+<td>71</td>
+<td>17.7M</td>
+<td>78</td>
+</tr>
+<tr>
+<td>戰士</td>
+<td>坦克</td>
+<td>26.7M</td>
+<td>98</td>
+<td>9.6M</td>
+<td>98</td>
+</tr>
+<tr>
+<td>祭司</td>
+<td>治癒</td>
+<td>22.4M</td>
+<td>82</td>
+<td>15.6M</td>
+<td>102</td>
+</tr>
+<tr>
+<td>電擊術士</td>
+<td>輸出</td>
+<td>22.3M</td>
+<td>37</td>
+<td>10.6M</td>
+<td>36</td>
+</tr>
+<tr>
+<td>治癒師</td>
+<td>治癒</td>
+<td>18.3M</td>
+<td>66</td>
+<td>11.5M</td>
+<td>90</td>
+</tr>
+<tr>
+<td>騎士</td>
+<td>坦克</td>
+<td>15.0M</td>
+<td>18</td>
+<td>6.0M</td>
+<td>21</td>
+</tr>
+<tr>
+<td>吟遊詩人</td>
+<td>治癒</td>
+<td>14.6M</td>
+<td>50</td>
+<td>9.6M</td>
+<td>54</td>
+</tr>
+<tr>
+<td>冰霜術士</td>
+<td>坦克</td>
+<td>14.2M</td>
+<td>69</td>
+<td>9.1M</td>
+<td>81</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h4 id="這一期的變化">這一期的變化</h4>
+<ul>
+<li>Nightmare Drill 前 10 名平均層數從 9/25 到 10/14，除了一開始就是 30.0 層的弓箭手與暗黑術士，其他職業都有上升；漲幅最大的是騎士（+2.0）、樂師（+1.9）、長弓手（+1.9）、治癒師（+1.7）。</li>
+<li>長弓手在 2026/10/01 主力技能 +20% 之後，Nightmare Drill 前 10 名平均在 10/02 上升 0.6 層，是它這一期最大的單日漲幅。</li>
+</ul>
+<h4 id="跟社群評價對照">跟社群評價對照</h4>
+<ul>
+<li>一致：弓箭手、暗黑術士、戰士最強勢；盜賊、格鬥家、電擊術士偏弱。</li>
+<li>不一致：社群說大劍戰士這一季「沒給上調」，它卻是卡布拉克 DPS 第 3 名、Nightmare Drill 第 5 名。社群說弩手「默默死了」，它是艾瑞爾 DPS 第 4 名、Nightmare Drill 第 10 名，屬於中段。</li>
+</ul>
+<h4 id="資料來源與方法">資料來源與方法</h4>
+<table>
+<thead>
+<tr>
+<th>來源</th>
+<th>頁面</th>
+<th>內容</th>
+<th>收集範圍</th>
+<th>樣本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>모비스코어（mobi-score.com）</td>
+<td><a target="_blank" rel="noopener" href="https://mobi-score.com/ranking">DPS 排名</a></td>
+<td>玩家自行安裝的 DPS 計量工具上傳的戰鬥紀錄，從 boss 出現算到倒下</td>
+<td>2026/09/17～10/14</td>
+<td>15 個項目、11,561 筆玩家最佳紀錄</td>
+</tr>
+<tr>
+<td>모비라이프（mabimobi.life）</td>
+<td><a target="_blank" rel="noopener" href="https://mabimobi.life/ranking/nightmare">Nightmare Drill 排名</a>、<a target="_blank" rel="noopener" href="https://mabimobi.life/ranking/abyss">深淵排名</a></td>
+<td>遊戲內官方排名的整理，網站自稱非官方資料、與 Nexon 無關</td>
+<td>2026/10/14 快照；每日資料 Nightmare Drill 從 9/25、深淵從 9/18 開始</td>
+<td>各職業前 100 名；上榜總數 Nightmare Drill 16,279 人、深淵 15,020 人</td>
+</tr>
+<tr>
+<td>DCInside 艾文藝廊</td>
+<td><a target="_blank" rel="noopener" href="https://gall.dcinside.com/mgallery/board/lists/?id=enban">討論區</a></td>
+<td>玩家的個人紀錄與評價，只用來交叉比對</td>
+<td>2026/07～10</td>
+<td>個別貼文</td>
+</tr>
+</tbody>
+</table>
+<p>整理後的原始資料：<a href="data/s2-strength/mobiscore-dps-by-class.csv">DPS（모비스코어）</a>、<a href="data/s2-strength/mabimobi-nightmare-class.csv">Nightmare Drill 職業別</a>、<a href="data/s2-strength/mabimobi-nightmare-daily.csv">Nightmare Drill 每日</a>、<a href="data/s2-strength/mabimobi-abyss-class.csv">深淵職業別</a>、<a href="data/s2-strength/mabimobi-abyss-daily.csv">深淵每日</a>、<a href="data/s2-strength/mabimobi-top100-distribution.csv">全服前 100 名分布</a>。</p>
+<ul>
+<li>通關實力：모비라이프 的 Nightmare Drill 排名，單人挑戰、以個人計算。每位玩家的成績是打到的最高層與通關時間；每個職業看前 10 名玩家的平均層數，同分再比第 100 名門檻的層數與時間。</li>
+<li>團戰 DPS：모비스코어 的卡布拉克（카브락）困難與艾瑞爾（에이렐）非常困難。모비스코어 的 Raid 排名只有這兩項，也就是兩個 Raid 各自的最高難度；艾瑞爾困難沒有收錄。每位玩家只取最佳紀錄，每個職業取前 10 名 DPS 的中位數。DPS 是個人在隊伍中打出的傷害，包含隊友的增益。</li>
+<li>團戰 DPS 的分組依 모비라이프 的定位分類：坦克是戰士、冰霜術士、騎士；治癒是治癒師、祭司、修道士、吟遊詩人；其餘 14 個職業是輸出。</li>
+<li>沒有採用的資料：深淵排名的分數，網站與官方都沒有說明怎麼計算；모비스코어 的深淵與 Nightmare Drill 各層 DPS，前段職業打得特別快（例如虛像停泊地（허상의 정박지）弓箭手前 10 名的戰鬥時間中位數 16 秒），DPS 受戰鬥長短影響太大。兩者的原始資料仍可從上方連結下載。</li>
+</ul>
+<h4 id="限制">限制</h4>
+<ul>
+<li>只看各職業最頂尖的玩家，不代表一般玩家的表現。玩家多的職業，頂端成績自然較高，所以職業強度和玩家人數的影響分不開。</li>
+<li>모비스코어 只有安裝工具的玩家才有資料，73～87% 是匿名訪客帳號；모비라이프 沒有公開收集方法，自稱非官方資料。</li>
+</ul>
+</section>
 <section class="panel" id="全職業共通變動" data-title="全職業共通變動"><h2>全職業共通變動</h2>
 <p>本文判斷影響最大的兩項共通削弱是 2026/06/25 Break Extend 增幅全面減半，以及 2026/09/17 舊賽季符文的唯一效果在高難度內容失效，兩者都可能比單一職業的調整影響更大。新職業上線日：盜賊系 2025/04/24、電擊術士 2025/06/19、暗黑術士 2025/10/16、騎士 2026/04/23。</p>
 <table class="changes">
@@ -214,8 +698,8 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/08/20 (S2)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
-<td>大魔法師（대마법사）、利爪（갈퀴발톱）／+、沉沒王國（가라앉은 왕국）、海蛇+（바다뱀+）、封印師（봉인술사）、刺骨寒風（칼바람）、骨之印章（뼈 인장）、無盡貪婪（무한한 탐욕）、守護者（수호자）、蒼白騎手（창백한 기수）、大君主（대군주）／+ 等符文的持續增傷效果，原本會多重複套用 1 次</td>
+<td class="type"><span class="badge t-down">削弱</span></td>
+<td>大魔法師（대마법사）、利爪（갈퀴발톱）／+、沉沒王國（가라앉은 왕국）、海蛇+（바다뱀+）、封印師（봉인술사）、刺骨寒風（칼바람）、骨之印章（뼈 인장）、無盡貪婪（무한한 탐욕）、守護者（수호자）、蒼白騎手（창백한 기수）、大君主（대군주）／+ 等符文的持續增傷效果，原本會多重複套用 1 次（Bug 修正）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3527689">8/20</a></td>
 </tr>
 <tr>
@@ -232,19 +716,19 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/07/16 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>武器符文「蒼白騎士（창백한 기사）」究極技增傷未生效、「烏雲（먹구름）」超越能力值未套用、「崩塌的邊界（무너진 경계）」超越追加打擊未生效等修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
 <tr>
 <td>2026/07/09 (S2)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td>「侵蝕（침식）」系防具符文達 100 層後，卸下符文換區仍殘留效果的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3495349">7/9</a></td>
 </tr>
 <tr>
 <td>2026/07/02 (S2)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>深淵「單人（혼자하기）」職業系加成。治癒師、祭司、修道士、吟遊詩人：最終傷害 +25%、受傷 −25%；戰士、騎士、冰霜術士：最終傷害 +25%、每秒回 1%；其他職業：受傷 −25%、每秒回 1%</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3489835">7/2</a></td>
 </tr>
@@ -256,20 +740,20 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/06/25 (S2)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
-<td>全職業各新增 1 個被動；新增賽季技能<span class="sk">【賽季 2：夜之痕跡（시즌2: 밤의 흔적）】</span>與魔導壓力／魔導抗性系統；修正部分技能重複獲得究極能量（修正後變弱）</td>
+<td class="type"><span class="badge t-note">其他</span></td>
+<td>全職業各新增 1 個被動；新增賽季技能<span class="sk">【賽季 2：夜之痕跡（시즌2: 밤의 흔적）】</span>與魔導壓力／魔導抗性系統；修正部分技能重複獲得究極能量（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
 <tr>
 <td>2026/05/21 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>「熟練連攜（숙련 연계）」加成未套用到護盾與持續傷害的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3448003">5/21</a></td>
 </tr>
 <tr>
 <td>2026/04/23 (S1)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
-<td>新職業騎士；刻印強化失敗也累積點數；裝備轉換卷軸；換裝或換職時部分強化效果不解除的問題修正（修正後變弱）</td>
+<td class="type"><span class="badge t-note">其他</span></td>
+<td>新職業騎士；刻印強化失敗也累積點數；裝備轉換卷軸；換裝或換職時部分強化效果不解除的問題修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3428325">4/23</a></td>
 </tr>
 <tr>
@@ -292,7 +776,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/01/15 (S1)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>新系統「聖騎士神器（팔라딘 아티팩트）」（最多 5 個）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3345587">1/15</a></td>
 </tr>
@@ -311,24 +795,24 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/11/13 (S1)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td>各層獨立計時的符文，滿層時新層覆蓋最短的層；徽章符文（엠블럼 룬）「遙遠之光（아득한 빛）」5% 增傷未生效修正（修正後變強）；大魔法師（대마법사）對格鬥家、長弓手蓄力技未生效修正（修正後變強）</td>
+<td>各層獨立計時的符文，滿層時新層覆蓋最短的層；徽章符文（엠블럼 룬）「遙遠之光（아득한 빛）」5% 增傷未生效修正（增強）；大魔法師（대마법사）對格鬥家、長弓手蓄力技未生效修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3219468">11/13</a></td>
 </tr>
 <tr>
 <td>2025/10/30 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>多人同時使用 Break Extend 的時間過短修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3201526">10/30</a></td>
 </tr>
 <tr>
 <td>2025/09/25 (S1)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>新增 Break Extend；Break 增幅統一為無防備 20%、強打 10%、連打 10%、持續傷害 5%（魅惑、恐懼等上調到與 Blow 相同）；「受傷增加」與「增傷」的互動公式變更；新增聖騎士（팔라딘）變身</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3147463">9/25</a></td>
 </tr>
 <tr>
 <td>2025/08/21 (S0)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>英雄 buff：4 人以上深淵／Raid，最後 1 人時攻擊 +20%、普攻與技能速度 +30%；職業特化輔助模式</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3100670">8/21</a></td>
 </tr>
@@ -346,14 +830,14 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/05/15 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>技能使用速度高時，部分技能最後一擊不生效的問題修正；回復類主動技能改為隨技能等級提高回復量</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2893063">5/15</a></td>
 </tr>
 <tr>
 <td>2025/04/24 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td>新職業系盜賊；回復技能回復量異常偏高修正（修正後變弱）；寶石技能標籤增傷未套用部分技能修正（修正後變強）</td>
+<td>新職業系盜賊；回復技能回復量異常偏高修正（削弱）；寶石技能標籤增傷未套用部分技能修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2839181">4/24</a></td>
 </tr>
 </tbody>
@@ -413,7 +897,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/07/31 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>對大型怪物在最大射程施放<span class="sk">【刺穿（꿰뚫기）】</span>時蓄力被取消的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
@@ -460,18 +944,18 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/07/16 (S2)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【迴旋斬（회전 베기）】</span><span class="rn">〔切斷（절단）〕</span>移除傷口持續傷害，改為可儲存 2 次，冷卻與傷害同步提高；<span class="sk">【上揚猛擊（라이징 스매시）】</span><span class="rn">〔反擊（반격）〕</span>施放中受擊必得 1 點戰鬥節奏（增強）；<span class="sk">【大劍術（대검술）】</span><span class="rn">〔無慈悲（무자비）〕</span>處決可消耗「彈力（탄력）」增加蓄力階段（增強）；「復仇（복수）」效果不再於戰鬥結束時消失（修正後變強）</td>
+<td><span class="sk">【迴旋斬（회전 베기）】</span><span class="rn">〔切斷（절단）〕</span>移除傷口持續傷害，改為可儲存 2 次，冷卻與傷害同步提高；<span class="sk">【上揚猛擊（라이징 스매시）】</span><span class="rn">〔反擊（반격）〕</span>施放中受擊必得 1 點戰鬥節奏（增強）；<span class="sk">【大劍術（대검술）】</span><span class="rn">〔無慈悲（무자비）〕</span>處決可消耗「彈力（탄력）」增加蓄力階段（增強）；「復仇（복수）」效果不再於戰鬥結束時消失（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
 <tr>
 <td>2026/07/09 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【大劍術（대검술）】</span><span class="rn">〔無慈悲（무자비）〕</span>無法發動「夜之祝福（밤의 축복）」的問題修正；<span class="sk">【報復（보복）】</span>最大層數改為 100（公告未列原值）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3495349">7/9</a></td>
 </tr>
 <tr>
 <td>2026/07/02 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>被動<span class="sk">【報復（보복）】</span>在自身扣血時不觸發攻擊力增加的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3489835">7/2</a></td>
 </tr>
@@ -495,13 +979,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/07/17 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【大劍術（대검술）】</span><span class="rn">〔會心（회심）〕</span>「暴擊率 2 倍」的體力門檻低於標示的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3038276">7/17</a></td>
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>裝備<span class="rn">〔會心（회심）〕</span>時，<span class="sk">【橫掃大地（대지 휩쓸기）】</span>／<span class="sk">【心臟突刺（심장 찌르기）】</span>／<span class="sk">【破風斬（바람 가르기）】</span>究極能量獲得量下降的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
@@ -531,14 +1015,14 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tbody>
 <tr>
 <td>2026/06/25 (S2)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>新被動<span class="sk">【先手必勝（선수필승）】</span>；<span class="sk">【飛劍（비검）】</span><span class="rn">〔落花（낙화）〕</span>補上賜予疾風態勢的說明（僅改說明）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
 <tr>
 <td>2025/10/16 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
-<td><span class="rn">〔平靜（평정）〕</span>改為只提高劍術師技能傷害</td>
+<td class="type"><span class="badge t-down">削弱</span></td>
+<td><span class="rn">〔平靜（평정）〕</span>改為只提高劍術師技能傷害（Bug 修正）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3181933">10/16</a></td>
 </tr>
 <tr>
@@ -550,12 +1034,12 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/06/19 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【疾風斬（질풍 베기）】</span><span class="rn">〔血風（피바람）〕</span>無法累積連攜劍術修正（修正後變強）；連用同一種<span class="sk">【飛劍（비검）】</span>仍可疊層的異常修正（修正後變弱）</td>
+<td><span class="sk">【疾風斬（질풍 베기）】</span><span class="rn">〔血風（피바람）〕</span>無法累積連攜劍術修正（增強）；連用同一種<span class="sk">【飛劍（비검）】</span>仍可疊層的異常修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
 <tr>
 <td>2025/04/10 (S0)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【看破（간파）】</span>未發現破綻仍必定命中的問題修正；<span class="rn">〔猛烈（맹렬）〕</span>範圍改為與一般<span class="sk">【看破】</span>相同</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2803825">4/10</a></td>
 </tr>
@@ -591,13 +1075,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/08/20 (S2)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【沉重之盾（무거운 방패）】</span>的「<span class="sk">【盾牌重擊（방패 강타）】</span>增傷」重複套用 1 次的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3527689">8/20</a></td>
 </tr>
 <tr>
 <td>2026/07/30 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【盾牌衝鋒（방패 돌격）】</span><span class="rn">〔震地（지진）〕</span>不觸發嘲諷類符文效果的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3511370">7/30</a></td>
 </tr>
@@ -609,19 +1093,19 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/06/25 (S2)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>新被動<span class="sk">【沉重之盾（무거운 방패）】</span>；<span class="sk">【騎士團召集（기사단 소집）】</span>周圍無敵時不回基本姿勢修正；<span class="sk">【粉碎（파쇄）】</span><span class="rn">〔枯竭（고갈）〕</span>印章用盾擊附著時減少 8 秒（應為 4 秒）的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
 <tr>
 <td>2026/05/21 (S1)</td>
-<td class="type"><span class="badge t-fix">修正</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td><span class="sk">【盾牌衝鋒（방패 돌격）】</span>使用後偶發維持「忽略碰撞」狀態的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3448003">5/21</a></td>
 </tr>
 <tr>
 <td>2026/04/23 (S1)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>戰士系新轉職職業上線，新增飾品符文 8 種、符文詞 2 種</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3428325">4/23</a></td>
 </tr>
@@ -664,7 +1148,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/06/25 (S2)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>新被動<span class="sk">【順風（순풍）】</span></td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
@@ -689,13 +1173,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/07/17 (S0)</td>
 <td class="type"><span class="badge t-up">增強</span></td>
-<td><span class="sk">【左輪箭（애로우 리볼버）】</span>、<span class="sk">【巨力射擊（매그놈 샷）】</span>、<span class="sk">【側步（사이드 스텝）】</span>、<span class="sk">【鷹眼射擊（호크 샷）】</span>、<span class="sk">【脫離步（이스케이프 스텝）】</span>、<span class="sk">【灼熱軌跡（작열의 궤적）】</span>、<span class="sk">【多發射擊（다발 사격）】</span>傷害各 +10%；<span class="rn">〔致命（치명적）〕</span>追加致命射擊未套用<span class="sk">【鷹眼射擊】</span>／<span class="sk">【灼熱軌跡】</span>修正（修正後變強）</td>
+<td><span class="sk">【左輪箭（애로우 리볼버）】</span>、<span class="sk">【巨力射擊（매그놈 샷）】</span>、<span class="sk">【側步（사이드 스텝）】</span>、<span class="sk">【鷹眼射擊（호크 샷）】</span>、<span class="sk">【脫離步（이스케이프 스텝）】</span>、<span class="sk">【灼熱軌跡（작열의 궤적）】</span>、<span class="sk">【多發射擊（다발 사격）】</span>傷害各 +10%；<span class="rn">〔致命（치명적）〕</span>追加致命射擊未套用<span class="sk">【鷹眼射擊】</span>／<span class="sk">【灼熱軌跡】</span>修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3038276">7/17</a></td>
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【左輪箭（애로우 리볼버）】</span><span class="rn">〔致命（치명적）〕</span>究極技冷卻重置未生效修正（修正後變強）；使用究極技後無法使用究極藥水（削弱）</td>
+<td><span class="sk">【左輪箭（애로우 리볼버）】</span><span class="rn">〔致命（치명적）〕</span>究極技冷卻重置未生效修正（增強）；使用究極技後無法使用究極藥水（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
 </tbody>
@@ -724,13 +1208,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tbody>
 <tr>
 <td>2026/09/17 (S2)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【地獄火（헬 파이어）】</span>取消時仍觸發<span class="sk">【集中射擊（포커스 파이어）】</span>的異常修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3545062">9/17</a></td>
 </tr>
 <tr>
 <td>2026/08/27 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【疾風弩箭（거스팅 볼트）】</span><span class="rn">〔貫穿（관통）〕</span>追加發動的<span class="sk">【幸運弩箭（포츈 볼트）】</span>不觸發<span class="sk">【額外動作（엑스트라 액션）】</span>的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3532699">8/27</a></td>
 </tr>
@@ -743,7 +1227,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/07/16 (S2)</td>
 <td class="type"><span class="badge t-up">增強</span></td>
-<td><span class="sk">【幸運弩箭（포츈 볼트）】</span>可由<span class="rn">〔電流（전류）〕</span>的散射箭追加發動；間歇不發動修正（修正後變強）</td>
+<td><span class="sk">【幸運弩箭（포츈 볼트）】</span>可由<span class="rn">〔電流（전류）〕</span>的散射箭追加發動；間歇不發動修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
 <tr>
@@ -760,7 +1244,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/10/30 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【爆破射擊（버스터 샷）】</span>取消後仍獲得移速加成的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3201526">10/30</a></td>
 </tr>
@@ -778,13 +1262,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/07/31 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>寶石冷卻縮減未套用到<span class="sk">【額外動作（엑스트라 액션）】</span>技能的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【疾風弩箭（거스팅 볼트）】</span>的灼燒屬性未生效的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
@@ -827,19 +1311,19 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/08/20 (S2)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【高昂感（고양감）】</span>究極增傷重複套用修正（修正後變弱）；<span class="sk">【獵心（하트 시커）】</span><span class="rn">〔超音波（초음파）〕</span>不發動<span class="sk">【狩獵術（사냥술）】</span>修正（修正後變強）</td>
+<td><span class="sk">【高昂感（고양감）】</span>究極增傷重複套用修正（削弱）；<span class="sk">【獵心（하트 시커）】</span><span class="rn">〔超音波（초음파）〕</span>不發動<span class="sk">【狩獵術（사냥술）】</span>修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3527689">8/20</a></td>
 </tr>
 <tr>
 <td>2026/07/16 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【穿翼（윙 스큐어）】</span><span class="rn">〔呼應（호응）〕</span>時，防具符文「寒風（한풍）」「利爪（갈퀴발톱）」不生效的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
 <tr>
 <td>2026/07/02 (S2)</td>
 <td class="type"><span class="badge t-up">增強</span></td>
-<td><span class="sk">【鋸齒箭（톱날 화살）】</span>發動時，「傷口（상처）」持續傷害新增直接傷害，並縮短可用技能的剩餘冷卻；<span class="sk">【穿翼（윙 스큐어）】</span><span class="rn">〔呼應（호응）〕</span><span class="sk">【狩獵術（사냥술）】</span>修正（修正後變強）</td>
+<td><span class="sk">【鋸齒箭（톱날 화살）】</span>發動時，「傷口（상처）」持續傷害新增直接傷害，並縮短可用技能的剩餘冷卻；<span class="sk">【穿翼（윙 스큐어）】</span><span class="rn">〔呼應（호응）〕</span><span class="sk">【狩獵術（사냥술）】</span>修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3489835">7/2</a></td>
 </tr>
 <tr>
@@ -869,13 +1353,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/07/31 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【死亡毒刺（데스 스팅어）】</span>／<span class="sk">【致命射擊（데들리 샷）】</span>／<span class="sk">【屠龍（드래곤 베인）】</span>未套用究極能力值修正（修正後變強）；<span class="sk">【獵心（하트 시커）】</span> Break 擊退 5→1.8 m、<span class="rn">〔超音波（초음파）〕</span>不再擊退；<span class="sk">【死亡毒刺】</span>不再擊退；<span class="sk">【死亡毒刺】</span>、<span class="sk">【致命射擊】</span> Break 類型 Blow→Stun</td>
+<td><span class="sk">【死亡毒刺（데스 스팅어）】</span>／<span class="sk">【致命射擊（데들리 샷）】</span>／<span class="sk">【屠龍（드래곤 베인）】</span>未套用究極能力值修正（增強）；<span class="sk">【獵心（하트 시커）】</span> Break 擊退 5→1.8 m、<span class="rn">〔超音波（초음파）〕</span>不再擊退；<span class="sk">【死亡毒刺】</span>不再擊退；<span class="sk">【死亡毒刺】</span>、<span class="sk">【致命射擊】</span> Break 類型 Blow→Stun</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
 <tr>
 <td>2025/07/17 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【狙擊術（저격술）】</span>發動多等 1 秒的問題修正（修正後變強）、移動中誤發動修正（修正後變弱）；<span class="sk">【致命射擊（데들리 샷）】</span>移除擊退</td>
+<td><span class="sk">【狙擊術（저격술）】</span>發動多等 1 秒的問題修正（增強）、移動中誤發動修正（削弱）；<span class="sk">【致命射擊（데들리 샷）】</span>移除擊退</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3038276">7/17</a></td>
 </tr>
 <tr>
@@ -899,12 +1383,12 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/04/24 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【獵心（하트 시커）】</span><span class="rn">〔超音波（초음파）〕</span>改為擊退範圍內敵人；<span class="sk">【狙擊術（저격술）】</span>在 Break、擊退、自動移動後不啟動的問題修正（修正後變強）</td>
+<td><span class="sk">【獵心（하트 시커）】</span><span class="rn">〔超音波（초음파）〕</span>改為擊退範圍內敵人；<span class="sk">【狙擊術（저격술）】</span>在 Break、擊退、自動移動後不啟動的問題修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2839181">4/24</a></td>
 </tr>
 <tr>
 <td>2025/04/03 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【屠龍（드래곤 베인）】</span>使用時無敵效果未生效的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2777174">4/3</a></td>
 </tr>
@@ -981,24 +1465,24 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/06/19 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【無限魔力（마나 인피니티）】</span>冷卻重置套用到<span class="sk">【魔力風暴（마나 스톰）】</span><span class="rn">〔增幅（증폭）〕</span>、可補滿<span class="sk">【火球（파이어 볼）】</span>全部層數（修正後變強）；究極技後無法用究極藥水（削弱）</td>
+<td><span class="sk">【無限魔力（마나 인피니티）】</span>冷卻重置套用到<span class="sk">【魔力風暴（마나 스톰）】</span><span class="rn">〔增幅（증폭）〕</span>、可補滿<span class="sk">【火球（파이어 볼）】</span>全部層數（增強）；究極技後無法用究極藥水（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
 <tr>
 <td>2025/05/29 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
-<td><span class="sk">【元素精通（엘리멘탈 마스터）】</span>增幅未生效、<span class="rn">〔隕石（운석）〕</span>流星（메테오）無究極能量與<span class="sk">【冥想（메디테이션）】</span>修正；<span class="sk">【魔力護盾（마나 실드）】</span><span class="rn">〔增幅（증폭）〕</span>後退距離增加；<span class="sk">【魔力風暴（마나 스톰）】</span><span class="rn">〔增幅〕</span>減傷持續存在修正（修正後變弱）</td>
+<td class="type"><span class="badge t-up">增強</span></td>
+<td><span class="sk">【元素精通（엘리멘탈 마스터）】</span>增幅未生效、<span class="rn">〔隕石（운석）〕</span>流星（메테오）無究極能量與<span class="sk">【冥想（메디테이션）】</span>修正；<span class="sk">【魔力護盾（마나 실드）】</span><span class="rn">〔增幅（증폭）〕</span>後退距離增加；<span class="sk">【魔力風暴（마나 스톰）】</span><span class="rn">〔增幅〕</span>減傷持續存在修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2919137">5/29</a></td>
 </tr>
 <tr>
 <td>2025/05/15 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【閃電（라이트닝）】</span>未套用狙擊符文的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2893063">5/15</a></td>
 </tr>
 <tr>
 <td>2025/04/24 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【冰霜匕首（아이스 대거）】</span>異常、冰晶召喚階段攻擊次數與<span class="sk">【冥想（메디테이션）】</span>不動作修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2839181">4/24</a></td>
 </tr>
@@ -1042,13 +1526,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/03/12 (S1)</td>
-<td class="type"><span class="badge t-fix">修正</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td><span class="rn">〔青焰（청염）〕</span><span class="sk">【火焰砲（플레임 캐논）】</span>與過熱（오버히트）+層數延長的異常修正（公告未詳述方向）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3398067">3/12</a></td>
 </tr>
 <tr>
 <td>2026/01/29 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>使用究極能量藥水後無法連續施放<span class="sk">【煉獄（인페르노）】</span>的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3359482">1/29</a></td>
 </tr>
@@ -1061,7 +1545,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/10/16 (S1)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【火花（스파크）】</span>新增開戰獲得 50 熱氣（增強）；<span class="sk">【爆破（익스플로전）】</span>、<span class="sk">【交叉火焰（크로스 파이어）】</span>標籤統一為強打＋連打＋元素；<span class="rn">〔青焰（청염）〕</span>未施放完仍得過熱（오버히트）+加成的問題修正（修正後變弱）</td>
+<td><span class="sk">【火花（스파크）】</span>新增開戰獲得 50 熱氣（增強）；<span class="sk">【爆破（익스플로전）】</span>、<span class="sk">【交叉火焰（크로스 파이어）】</span>標籤統一為強打＋連打＋元素；<span class="rn">〔青焰（청염）〕</span>未施放完仍得過熱（오버히트）+加成的問題修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3181933">10/16</a></td>
 </tr>
 <tr>
@@ -1078,7 +1562,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/05/29 (S0)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【火焰砲（플레임 캐논）】</span><span class="rn">〔火力（화력）〕</span>反覆施放取消以觸發<span class="rn">〔噴發（분출）〕</span>與<span class="sk">【燃燒之魂（버닝 소울）】</span>、<span class="sk">【煉獄（인페르노）】</span>疊加不同階段<span class="sk">【燃燒之魂】</span>的異常修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2919137">5/29</a></td>
 </tr>
@@ -1116,25 +1600,25 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tbody>
 <tr>
 <td>2026/07/30 (S2)</td>
-<td class="type"><span class="badge t-note">僅改說明</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>賽季技能<span class="sk">【黑霜（검은 서리）】</span>補充說明：不產生追加打擊</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3511370">7/30</a></td>
 </tr>
 <tr>
 <td>2026/06/25 (S2)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td>新被動<span class="sk">【北風引導者（북풍의 인도자）】</span>；<span class="sk">【冰凍寶珠（프로즌 오브）】</span>攻擊範圍多出 1 m 的問題修正（修正後變弱）；引導中途造成「結束傷害」而非最大傷害的問題修正</td>
+<td>新被動<span class="sk">【北風引導者（북풍의 인도자）】</span>；<span class="sk">【冰凍寶珠（프로즌 오브）】</span>攻擊範圍多出 1 m 的問題修正（削弱）；引導中途造成「結束傷害」而非最大傷害的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
 <tr>
 <td>2026/03/12 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="rn">〔冰劍（빙검）〕</span>水晶劍（크리스탈 소드）後變身聖騎士（팔라딘）可重複使用的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3398067">3/12</a></td>
 </tr>
 <tr>
 <td>2026/02/12 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="rn">〔冰河（빙하）〕</span>過冷偶爆在 4 層就觸發的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3373329">2/12</a></td>
 </tr>
@@ -1164,7 +1648,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/04/24 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【飄散冰霜（흩날리는 서리）】</span>、<span class="rn">〔冰劍（빙검）〕</span>水晶劍（크리스탈 소드）與緋紅水晶（크림슨 크리스탈）不發動等多項修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2839181">4/24</a></td>
 </tr>
@@ -1192,19 +1676,19 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tbody>
 <tr>
 <td>2026/08/13 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【落雷（낙뢰）】</span>、<span class="sk">【電磁風暴（전자기 폭풍）】</span>對大型怪物偶爾打不到的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3521707">8/13</a></td>
 </tr>
 <tr>
 <td>2026/07/23 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【分叉閃電（갈래 번개）】</span><span class="rn">〔導管（도관）〕</span>對大型怪物遠距使用時引導立即中斷的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3505479">7/23</a></td>
 </tr>
 <tr>
 <td>2026/06/25 (S2)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>新被動<span class="sk">【增幅（증폭）】</span></td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
@@ -1240,19 +1724,19 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/07/31 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【電磁風暴（전자기 폭풍）】</span>在最大射程對大型怪物立即結束、<span class="rn">〔親切（친절함）〕</span><span class="sk">【超越（초월）】</span>不自動施放的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
 <tr>
 <td>2025/07/03 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【落雷（낙뢰）】</span>、<span class="sk">【電漿斗篷（플라즈마 망토）】</span>、<span class="sk">【毀滅閃光（파괴의 섬광）】</span>蓄力改受「施法及蓄力速度」影響（原為技能使用速度）；<span class="sk">【超越（초월）】</span>時部分符文唯一效果不套用的問題修正（修正後變強）</td>
+<td><span class="sk">【落雷（낙뢰）】</span>、<span class="sk">【電漿斗篷（플라즈마 망토）】</span>、<span class="sk">【毀滅閃光（파괴의 섬광）】</span>蓄力改受「施法及蓄力速度」影響（原為技能使用速度）；<span class="sk">【超越（초월）】</span>時部分符文唯一效果不套用的問題修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2999050">7/3</a></td>
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>魔法師系新轉職職業上線</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
@@ -1286,13 +1770,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/07/16 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【召喚明光（서먼 루미너스）】</span><span class="rn">〔光暈（빛무리）〕</span>受治療量提升效果未運作的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
 <tr>
 <td>2026/07/02 (S2)</td>
-<td class="type"><span class="badge t-note">僅改說明</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>被動<span class="sk">【轉移（전이）】</span>機率標示 60%→40%；實際機率一直是 40%，不是削弱</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3489835">7/2</a></td>
 </tr>
@@ -1334,7 +1818,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/04/03 (S0)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【生命連結（라이프 링크）】</span>快速切換目標可重複造成傷害的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2777174">4/3</a></td>
 </tr>
@@ -1376,14 +1860,14 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/07/02 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>被動<span class="sk">【苦行（고행）】</span>在自身扣血時不觸發的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3489835">7/2</a></td>
 </tr>
 <tr>
 <td>2026/06/25 (S2)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td>新被動<span class="sk">【光之敕令（빛의 칙령）】</span>；<span class="sk">【召喚連結者（서먼 링커）】</span><span class="rn">〔祝福（축복）〕</span>連結隊友時，自己與目標獲得 35% 協同增傷（增強）；<span class="sk">【燃燒之光（타오르는 빛）】</span>改為只對祭司技能的強打發動（修正後變弱）</td>
+<td>新被動<span class="sk">【光之敕令（빛의 칙령）】</span>；<span class="sk">【召喚連結者（서먼 링커）】</span><span class="rn">〔祝福（축복）〕</span>連結隊友時，自己與目標獲得 35% 協同增傷（增強）；<span class="sk">【燃燒之光（타오르는 빛）】</span>改為只對祭司技能的強打發動（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3480721">6/25</a></td>
 </tr>
 <tr>
@@ -1412,7 +1896,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/07/31 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【神聖之槍（홀리 스피어）】</span>未套用施法速度的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
@@ -1436,7 +1920,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/04/10 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【凱爾特十字（켈틱 크로스）】</span>的神聖 DoT 無法觸發<span class="sk">【聖戰（성전）】</span>、<span class="sk">【神聖之槍（홀리 스피어）】</span><span class="rn">〔光芒（빛줄기）〕</span>對神聖 DoT 敵人未必定暴擊修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2803825">4/10</a></td>
 </tr>
@@ -1444,9 +1928,9 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </table>
 </section>
 <section class="panel" id="修道士-수도사" data-title="修道士（수도사）"><p class="kicker">治癒師系</p><h2>修道士（수도사）</h2>
-<p>修道士在 S0～S1 以增強為主，期間有三次修正後變弱的問題修正；S2 開季有增有減（<span class="sk">【信念之燈（신념의 등불）】</span>+「引導真言（인도의 진언）」普攻增傷 100%→70%）。</p>
+<p>修道士在 S0～S1 以增強為主，期間有三次讓效果變弱的問題修正；S2 開季有增有減（<span class="sk">【信念之燈（신념의 등불）】</span>+「引導真言（인도의 진언）」普攻增傷 100%→70%）。</p>
 <ul class="seasons">
-<li><div class="s-head"><span class="s-tag">S0</span><span class="s-period">開服～2025/09/24</span></div>2025/04/10 修正<span class="sk">【化身（화신）】</span><span class="rn">〔光輝（광휘）〕</span>造成異常傷害的問題。2025/05/08 <span class="sk">【信念要塞（신념의 요새）】</span>對敵傷害大幅提升，<span class="sk">【業火（업화）】</span>新增 #生存（생존）；2025/05/29 平靜真言（평온의 진언）回復力 30%→20% 是標示修正，不是削弱，同日修正<span class="sk">【業火】</span>可在射程外使用的問題（修正後變弱）。2025/07/17 <span class="sk">【猛衝（쇄도）】</span>、<span class="sk">【霹靂擊（벽력타）】</span>、<span class="sk">【守護陣（수호진）】</span>、<span class="sk">【治癒術（치유）】</span>、<span class="sk">【化身】</span>、<span class="sk">【信念要塞】</span>、<span class="sk">【信念之燈（신념의 등불）】</span>傷害各 +15%。2025/08/21 <span class="sk">【化身】</span>期間<span class="sk">【猛衝】</span>／<span class="sk">【霹靂擊】</span>增傷 25%→100%，<span class="sk">【頓悟（깨달음）】</span>觸發 30%→60%，<span class="sk">【信念要塞】</span>範圍內免擊退。整季是淨增強。</li>
+<li><div class="s-head"><span class="s-tag">S0</span><span class="s-period">開服～2025/09/24</span></div>2025/04/10 修正<span class="sk">【化身（화신）】</span><span class="rn">〔光輝（광휘）〕</span>造成異常傷害的問題。2025/05/08 <span class="sk">【信念要塞（신념의 요새）】</span>對敵傷害大幅提升，<span class="sk">【業火（업화）】</span>新增 #生存（생존）；2025/05/29 平靜真言（평온의 진언）回復力 30%→20% 是標示修正，不是削弱，同日修正<span class="sk">【業火】</span>可在射程外使用的問題（削弱）。2025/07/17 <span class="sk">【猛衝（쇄도）】</span>、<span class="sk">【霹靂擊（벽력타）】</span>、<span class="sk">【守護陣（수호진）】</span>、<span class="sk">【治癒術（치유）】</span>、<span class="sk">【化身】</span>、<span class="sk">【信念要塞】</span>、<span class="sk">【信念之燈（신념의 등불）】</span>傷害各 +15%。2025/08/21 <span class="sk">【化身】</span>期間<span class="sk">【猛衝】</span>／<span class="sk">【霹靂擊】</span>增傷 25%→100%，<span class="sk">【頓悟（깨달음）】</span>觸發 30%→60%，<span class="sk">【信念要塞】</span>範圍內免擊退。整季是淨增強。</li>
 <li><div class="s-head"><span class="s-tag">S1</span><span class="s-period">2025/09/25～2026/06/24</span></div>2025/09/25 <span class="sk">【化身（화신）】</span><span class="rn">〔光輝（광휘）〕</span>啟動傷害 +90.9%，<span class="sk">【治癒術（치유）】</span><span class="rn">〔業火（업화）〕</span>目標傷害 +36.6%。2025/10/16 修正<span class="sk">【治癒術】</span>未施放完也能獲得「引導真言（인도의 진언）」的問題。2025/11/27 <span class="sk">【信念要塞（신념의 요새）】</span>新增 Break 免疫，2025/12/18 <span class="sk">【信念之燈（신념의 등불）】</span>光環新增施法／蓄力與技能使用速度 +10%（不重複）。本季除 2025/10/16 的問題修正外都是增強，2025 年底的增強集中在生存與團隊速度。</li>
 <li><div class="s-head"><span class="s-tag">S2</span><span class="s-period">2026/06/25 起</span></div>2026/06/25 新增被動<span class="sk">【平安（평안）】</span>，<span class="sk">【猛衝（쇄도）】</span><span class="rn">〔因果（인과）〕</span>視為普攻，技能速度也隨攻速提高。同一天<span class="sk">【信念之燈（신념의 등불）】</span>+「引導真言（인도의 진언）」的普攻增傷 100%→70%。2026/07/16 賽季技能<span class="sk">【氣勢（기세）】</span>範圍 6→12 m。本季有增有減，普攻增傷被削弱，<span class="sk">【猛衝】</span><span class="rn">〔因果〕</span>路線則獲得增強。</li>
 </ul>
@@ -1488,7 +1972,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/10/16 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【治癒術（치유）】</span>未施放完也能獲得「引導真言（인도의 진언）」的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3181933">10/16</a></td>
 </tr>
@@ -1512,8 +1996,8 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/05/29 (S0)</td>
-<td class="type"><span class="badge t-note">僅改說明</span></td>
-<td>平靜真言（평온의 진언）回復力 30%→20% 是標示修正，不是削弱；<span class="sk">【業火（업화）】</span>可在射程外使用的問題修正（修正後變弱）</td>
+<td class="type"><span class="badge t-note">其他</span></td>
+<td>平靜真言（평온의 진언）回復力 30%→20% 是標示修正，不是削弱；<span class="sk">【業火（업화）】</span>可在射程外使用的問題修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2919137">5/29</a></td>
 </tr>
 <tr>
@@ -1524,7 +2008,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/04/10 (S0)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【化身（화신）】</span><span class="rn">〔光輝（광휘）〕</span>造成異常傷害的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2803825">4/10</a></td>
 </tr>
@@ -1571,7 +2055,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/05/21 (S1)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【混沌祭禮（혼돈의 제례）】</span>到期前重新施加時先移除再施加；<span class="rn">〔瘋狂（광기）〕</span>無唯一效果時仍偶得「黃昏時刻（황혼의 시간）」強化的問題修正（修正後變弱）</td>
+<td><span class="sk">【混沌祭禮（혼돈의 제례）】</span>到期前重新施加時先移除再施加；<span class="rn">〔瘋狂（광기）〕</span>無唯一效果時仍偶得「黃昏時刻（황혼의 시간）」強化的問題修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3448003">5/21</a></td>
 </tr>
 <tr>
@@ -1588,13 +2072,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/10/30 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【扭曲聖域（뒤틀린 성역）】</span><span class="rn">〔墮落（타락）〕</span>殘留效果未套用技能速度、<span class="rn">〔瘋狂（광기）〕</span>黃昏時刻（황혼의 시간）未隨強化等級提高的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3201526">10/30</a></td>
 </tr>
 <tr>
 <td>2025/10/16 (S1)</td>
-<td class="type"><span class="badge t-new">新增</span></td>
+<td class="type"><span class="badge t-note">其他</span></td>
 <td>治癒師系新轉職職業上線</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3181933">10/16</a></td>
 </tr>
@@ -1624,7 +2108,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tbody>
 <tr>
 <td>2026/09/17 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【弦音射擊（스트링 샷）】</span>接演奏技能時「利爪（갈퀴발톱）」「刺骨寒風（칼바람）」未生效、<span class="sk">【三重撥弦（트리플 스트로크）】</span><span class="rn">〔合奏（합주）〕</span>偶不增加究極能量的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3545062">9/17</a></td>
 </tr>
@@ -1648,7 +2132,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/12/18 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【微調（파인 튜닝）】</span>在無防備狀態命中時未生成「勇猛樂想（용맹의 악상）」的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3311104">12/18</a></td>
 </tr>
@@ -1666,7 +2150,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/10/16 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【弦音射擊（스트링 샷）】</span><span class="rn">〔突襲（급습）〕</span>防禦無視與暴擊率雙重套用的問題修正；<span class="sk">【勝利典禮（승리의 세레모니）】</span>演奏可用移動取消</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3181933">10/16</a></td>
 </tr>
@@ -1696,7 +2180,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【三重撥弦（트리플 스트로크）】</span><span class="rn">〔和音（화음）〕</span>狂熱（피버）無法疊滿、<span class="sk">【勝利典禮（승리의 세레모니）】</span>未提供狂熱的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
@@ -1709,7 +2193,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/04/24 (S0)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【裝死（죽은 척 하기）】</span>可無視部分範圍攻擊的問題修正（修正後變弱）；<span class="sk">【勇猛讚歌（용맹한 찬가）】</span>演奏增傷未生效修正（修正後變強）</td>
+<td><span class="sk">【裝死（죽은 척 하기）】</span>可無視部分範圍攻擊的問題修正（削弱）；<span class="sk">【勇猛讚歌（용맹한 찬가）】</span>演奏增傷未生效修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2839181">4/24</a></td>
 </tr>
 </tbody>
@@ -1745,14 +2229,14 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/07/23 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【小夜曲（세레나데）】</span><span class="rn">〔魅惑（매혹）〕</span>對大型怪物遠距使用時引導立即中斷的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3505479">7/23</a></td>
 </tr>
 <tr>
 <td>2026/07/16 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
-<td><span class="sk">【高潮（클라이맥스）】</span>的 Break 增傷不再限於被自己<span class="sk">【小夜曲（세레나데）】</span>打入 Break 的目標</td>
+<td class="type"><span class="badge t-up">增強</span></td>
+<td><span class="sk">【高潮（클라이맥스）】</span>的 Break 增傷不再限於被自己<span class="sk">【小夜曲（세레나데）】</span>打入 Break 的目標（Bug 修正）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
 <tr>
@@ -1764,7 +2248,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/11/13 (S1)</td>
 <td class="type"><span class="badge t-up">增強</span></td>
-<td><span class="rn">〔調律（조율）〕</span>強化持續 8→10 秒、技巧增傷最低值 10%→20%；<span class="sk">【奏鳴曲（소나타）】</span> 2 樂章未命中也可進 3 樂章；<span class="sk">【漸強（크레센도）】</span>持續 10 秒；<span class="sk">【懸疑（서스펜스）】</span>：<span class="sk">【漸強】</span>／<span class="sk">【華彩（카덴차）】</span>時 10 秒 15% 最大生命護盾，護盾期間免 Break；<span class="rn">〔魅惑（매혹）〕</span>中板（모데라토）修正（修正後變強）</td>
+<td><span class="rn">〔調律（조율）〕</span>強化持續 8→10 秒、技巧增傷最低值 10%→20%；<span class="sk">【奏鳴曲（소나타）】</span> 2 樂章未命中也可進 3 樂章；<span class="sk">【漸強（크레센도）】</span>持續 10 秒；<span class="sk">【懸疑（서스펜스）】</span>：<span class="sk">【漸強】</span>／<span class="sk">【華彩（카덴차）】</span>時 10 秒 15% 最大生命護盾，護盾期間免 Break；<span class="rn">〔魅惑（매혹）〕</span>中板（모데라토）修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3219468">11/13</a></td>
 </tr>
 <tr>
@@ -1782,7 +2266,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2025/07/31 (S0)</td>
 <td class="type"><span class="badge t-up">增強</span></td>
-<td><span class="sk">【星之奏鳴曲（별의 소나타）】</span>連攜時限 10→12 秒；<span class="rn">〔凶星（흉성）〕</span><span class="sk">【第三樂章：終焉（3악장: 종언）】</span>約 +117.4%；3 樂章暴風雨在敵人少於攻擊次數時集中目標；<span class="sk">【華彩（카덴차）】</span>追加演奏未套用究極能力值修正（修正後變強）</td>
+<td><span class="sk">【星之奏鳴曲（별의 소나타）】</span>連攜時限 10→12 秒；<span class="rn">〔凶星（흉성）〕</span><span class="sk">【第三樂章：終焉（3악장: 종언）】</span>約 +117.4%；3 樂章暴風雨在敵人少於攻擊次數時集中目標；<span class="sk">【華彩（카덴차）】</span>追加演奏未套用究極能力值修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
 <tr>
@@ -1793,7 +2277,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【星之奏鳴曲（별의 소나타）】</span> 1 樂章套<span class="sk">【漸強（크레센도）】</span>時增傷修正為 75%</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
@@ -1831,7 +2315,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/08/20 (S2)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【聚光燈（스포트라이트）】</span>使「夜之祝福（밤의 축복）」+5 秒，且<span class="sk">【安可（앵콜）】</span>時必定發動（增強）；<span class="sk">【安可】</span>與<span class="sk">【終幕（피날레）】</span>瞬間疊 4 層節拍（템포）的問題修正（修正後變弱）；<span class="sk">【安可】</span>給的節拍套用「絕妙節奏感（절묘한 박자감）」（修正後變強）；<span class="sk">【即興發揮（애드리브）】</span><span class="rn">〔歡呼（환호）〕</span>重做：依當前靈感判定、優雅（우아）疊層打擊數 2/4/8→2/4/6、熱情（정열） 1/2/4→1/2/3、最大層數增為 2、標籤改 #強打（강타） #連打（연타） #移動（이동）、使用時短暫加速、最低傷害上調且最高係數下調</td>
+<td><span class="sk">【聚光燈（스포트라이트）】</span>使「夜之祝福（밤의 축복）」+5 秒，且<span class="sk">【安可（앵콜）】</span>時必定發動（增強）；<span class="sk">【安可】</span>與<span class="sk">【終幕（피날레）】</span>瞬間疊 4 層節拍（템포）的問題修正（削弱）；<span class="sk">【安可】</span>給的節拍套用「絕妙節奏感（절묘한 박자감）」（增強）；<span class="sk">【即興發揮（애드리브）】</span><span class="rn">〔歡呼（환호）〕</span>重做：依當前靈感判定、優雅（우아）疊層打擊數 2/4/8→2/4/6、熱情（정열） 1/2/4→1/2/3、最大層數增為 2、標籤改 #強打（강타） #連打（연타） #移動（이동）、使用時短暫加速、最低傷害上調且最高係數下調</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3527689">8/20</a></td>
 </tr>
 <tr>
@@ -1842,13 +2326,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/07/30 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【即興發揮（애드리브）】</span><span class="rn">〔歡呼（환호）〕</span>未用終結攻擊就結束戰鬥時，「熱情（정열）／優雅（우아）」疊層偶會消失的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3511370">7/30</a></td>
 </tr>
 <tr>
 <td>2026/07/09 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【即興發揮（애드리브）】</span><span class="rn">〔歡呼（환호）〕</span>收尾階段進入節拍（템포） 2 階時冷卻未重置的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3495349">7/9</a></td>
 </tr>
@@ -1884,7 +2368,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/07/31 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【安可（앵콜）】</span>發動時移動會取消效果的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3064411">7/31</a></td>
 </tr>
@@ -1931,12 +2415,12 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/08/13 (S2)</td>
 <td class="type"><span class="badge t-mixed">有增有減</span></td>
-<td><span class="sk">【奇襲（기습）】</span>新增 [妨礙（방해）]；賽季技能<span class="sk">【幸運一擊（럭키 스트라이크）】</span>改為技能重用時重抽強化效果；對<span class="sk">【投擲炸彈（쓰로잉 봄）】</span>第 3 擊未套用的問題修正（修正後變強）</td>
+<td><span class="sk">【奇襲（기습）】</span>新增 [妨礙（방해）]；賽季技能<span class="sk">【幸運一擊（럭키 스트라이크）】</span>改為技能重用時重抽強化效果；對<span class="sk">【投擲炸彈（쓰로잉 봄）】</span>第 3 擊未套用的問題修正（增強）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3521707">8/13</a></td>
 </tr>
 <tr>
 <td>2026/07/16 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【投擲炸彈（쓰로잉 봄）】</span>不受技能速度加速、<span class="sk">【隱身（은신）】</span>追加打擊未套用到<span class="sk">【閃電突擊（블리츠 러시）】</span>的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
@@ -1955,7 +2439,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 <tr>
 <td>2026/03/26 (S1)</td>
 <td class="type"><span class="badge t-down">削弱</span></td>
-<td><span class="sk">【偷襲（스닉 어택）】</span>重置<span class="sk">【奇襲（기습）】</span>冷卻的效果加上 3 秒內部等待；<span class="rn">〔平靜（평온）〕</span>附魔充能過量的問題修正（修正後變弱）</td>
+<td><span class="sk">【偷襲（스닉 어택）】</span>重置<span class="sk">【奇襲（기습）】</span>冷卻的效果加上 3 秒內部等待；<span class="rn">〔平靜（평온）〕</span>附魔充能過量的問題修正（削弱）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3407267">3/26</a></td>
 </tr>
 <tr>
@@ -1996,7 +2480,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/06/19 (S0)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td><span class="sk">【隱身（은신）】</span>前先用<span class="sk">【投擲炸彈（쓰로잉 봄）】</span>會重複套用追加傷害的問題修正；<span class="sk">【腎上腺素（아드레날린）】</span>攻速標示 5%→20%（僅改說明，實際本就 20%）</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2958152">6/19</a></td>
 </tr>
@@ -2044,7 +2528,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/05/21 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>使用接近大型怪物的技能後再用<span class="sk">【後撤步（백 스텝）】</span>偶會打不到的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3448003">5/21</a></td>
 </tr>
@@ -2056,13 +2540,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/11/27 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【爆裂拳（버스트 펀치）】</span><span class="rn">〔擊破（격파）〕</span>周圍沒有敵人時不觸發追加攻擊的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3272485">11/27</a></td>
 </tr>
 <tr>
 <td>2025/10/16 (S1)</td>
-<td class="type"><span class="badge t-fixdown">修正後變弱</span></td>
+<td class="type"><span class="badge t-down">削弱</span></td>
 <td>大師徽章「必殺一擊（필살의 일격）」發動後卸下裝備可再次使用的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3181933">10/16</a></td>
 </tr>
@@ -2074,13 +2558,13 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/08/21 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>「戰鬥熟練：毀滅（전투 숙련: 파멸）」無防備增傷未套用的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3100670">8/21</a></td>
 </tr>
 <tr>
 <td>2025/07/03 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【後撤步（백 스텝）】</span>後持續移動時移速效果偶爾不生效的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2999050">7/3</a></td>
 </tr>
@@ -2092,7 +2576,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2025/05/29 (S0)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td>會心一擊（회심의 일격）被<span class="sk">【衝擊波（충격파）】</span>觸發消耗的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/2919137">5/29</a></td>
 </tr>
@@ -2135,7 +2619,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/07/16 (S2)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="sk">【滑翔之怒（글라이딩 퓨리）】</span><span class="rn">〔交叉（교차）〕</span>資源全滿時無法累積<span class="sk">【交叉斬擊（교차 참격）】</span>條件的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3500247">7/16</a></td>
 </tr>
@@ -2153,7 +2637,7 @@ table.matrix td.s-start{border-left:2px solid var(--text)}
 </tr>
 <tr>
 <td>2026/01/29 (S1)</td>
-<td class="type"><span class="badge t-fixup">修正後變強</span></td>
+<td class="type"><span class="badge t-up">增強</span></td>
 <td><span class="rn">〔強化（강화）〕</span><span class="sk">【咆哮暴風（하울링 템페스트）】</span>增傷未正常發動的問題修正</td>
 <td><a target="_blank" rel="noopener" href="https://mabinogimobile.nexon.com/News/Update/3359482">1/29</a></td>
 </tr>
